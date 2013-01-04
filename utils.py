@@ -8,6 +8,10 @@ def auth():
     # connect to database
 
 def add_user(name):
+    """
+    adds players to the database
+    DONE
+    """
     db=Connection['EmotionStock']
     users=db.players
     if not name in getPlayers():
@@ -15,15 +19,20 @@ def add_user(name):
         players.insert(player)
 
 def add_stock(name,stock,n,c):
+    """
+    calls changeMoney
+    adds stock type and number of stock to 
+    """
     db=Connection['EmotionStock']
     user=db.players
     emotion={"emotion":stock, "amount":c}
     if hasMoney(name):
-        changeMoney(name,n,c)
-        if has_Stock(name,stock):
-            update_stock(name,stock,n)
+        if hasStock(name,stock):
+            updateStock(name,stock,n)
         else:
-            players.update({'name':str(name)},{"$push":{'stocks':emotion} } )
+            me=players.find({'name':str(name)})
+            players.update({'name':str(name)},{"$push":{'stocks':emotion} } )#need to fix
+        changeMoney(name,n,c)
 
 def changeMoney(name,n,c):
     """
@@ -35,6 +44,7 @@ def changeMoney(name,n,c):
     db=Connection['EmotionStock']
     user=db.players
     cost=int(float(n))*int(float(c))
+    myMoney=
 
 def hasMoney(name):
     """
@@ -42,7 +52,19 @@ def hasMoney(name):
     """
     db=Connection['EmotionStock']
     user=db.players
-    me=players.find({'name':str(name)})
+    me=players.find({'name':str(name)})#wrong
 
-#def update_stock
-#def has_stock
+#def updateStock
+#def hasStock
+def getPlayers():
+    """
+    returns a list of the player's names
+    DONE
+    """
+    db=Connection['EmotionStock']
+    user=db.players
+    players=user.find()
+    names=[]
+    for line in players:
+        names.append(line['name'])
+    return names
