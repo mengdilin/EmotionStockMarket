@@ -64,9 +64,17 @@ def updateStock(name,stock,n,buy):
     stock: name of stock
     n: amount of stock
     buy: boolean; True if buying; False if selling
+    DONE
     """
     myStocks=getStocks(name)
-    
+    thisStock=myStock.find({'emotion':str(stock)})
+    orgAmt=thisStock['amount']
+    newAmt=""
+    if buy:
+        newAmt=str(int(n)+int(orgAmt))
+    else:
+        newAmt=str(int(n)-int(orgAmt))
+    myStocks.update({"emotion":str(stock)},{"$push":{"amount":newAmt}})
 
 def hasMoney(name,n,c):
     """
