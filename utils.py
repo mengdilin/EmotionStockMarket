@@ -22,7 +22,7 @@ def add_stock(name,stock,n,c):
     """
     calls changeMoney
     adds stock type & # of stocks
-    deducts n(#of stock)*c(price per stock) - strings
+    deducts n(#of stock)*c(price per stock) from 'money'
     OUTLINE DONE
     """
     db=Connection['EmotionStock']
@@ -36,6 +36,19 @@ def add_stock(name,stock,n,c):
             nstocks=stocks.insert(emotion)
             users.update({'name':str(name)},{"$push":{'stocks':nstocks} } )
         changeMoney(name,n,c,True)
+
+def remove_stock(name,stock,n,c):
+    """
+    calls changeMoney
+    removes n amount from stock 'stock'
+    adds n*c to 'money'
+    """
+    db=Connection['EmotionStock']
+    user=db.players
+    if hasStock(name,stock):
+        updateStock(name,stock,n,False)
+        changeMoney(name,n,c,False)
+        
 
 def changeMoney(name,n,c,buy):
     """
@@ -66,6 +79,8 @@ def updateStock(name,stock,n,buy):
     buy: boolean; True if buying; False if selling
     DONE
     """
+    #db=Collection['EmotionStock']
+    #user=db.players
     myStocks=getStocks(name)
     thisStock=myStock.find({'emotion':str(stock)})
     orgAmt=thisStock['amount']
@@ -74,7 +89,11 @@ def updateStock(name,stock,n,buy):
         newAmt=str(int(n)+int(orgAmt))
     else:
         newAmt=str(int(n)-int(orgAmt))
-    myStocks.update({"emotion":str(stock)},{"$push":{"amount":newAmt}})
+    if newAmt="0":
+        myStocks.remove({"emotion":str(stock)}) #removes emotion if no stocks
+    else:
+        myStocks.update({"emotion":str(stock)},{"$push":{"amount":newAmt}})
+    
 
 def hasMoney(name,n,c):
     """
@@ -95,7 +114,7 @@ def hasStock(name,stock):
     DONE
     """
     stocks=getStocks(name)
-    return stocks.find({'name':str(stock)}).count()
+    return (stocks.find({'name':str(stock)}).count())>0
 
 def getPlayers():
     """
