@@ -32,4 +32,5 @@ def setup1(keyword):
     return result["response"]["total"]
 
 print setup1("happy")
-print setup1("sad")
+print setup1("mad")
+print setup1("love")
