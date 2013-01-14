@@ -31,6 +31,6 @@ def setup1(keyword):
     result=json.loads(request.read())
     return result["response"]["total"]
 
-print setup1("happy")
-print setup1("mad")
-print setup1("love")
+
+print setup1("ugh")
+#love(200+);happy(90-100);bored(30-50);tired(10-20);sad(5-15);mad(0-10);sick(~20);excited(~20);

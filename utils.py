@@ -7,6 +7,16 @@ def auth():
     res=db.authenticate('ml7','ml7')
     # connect to database
 
+def setup():
+    """
+    creates dict of 'Emotions'
+    """
+    elist=["happy","love","sad","tired","bored","mad","sick"]
+    db=Connection["EmotionStock"]
+    emotions=db.emotions
+    for item in elist:
+        
+
 def add_user(name):
     """
     adds players to the database
@@ -42,13 +52,13 @@ def remove_stock(name,stock,n,c):
     calls changeMoney
     removes n amount from stock 'stock'
     adds n*c to 'money'
+    DONE
     """
     db=Connection['EmotionStock']
     user=db.players
     if hasStock(name,stock):
         updateStock(name,stock,n,False)
         changeMoney(name,n,c,False)
-        
 
 def changeMoney(name,n,c,buy):
     """
@@ -83,7 +93,9 @@ def updateStock(name,stock,n,buy):
     #user=db.players
     myStocks=getStocks(name)
     thisStock=myStock.find({'emotion':str(stock)})
-    orgAmt=thisStock['amount']
+    for item in thisStock:
+        amt=item["amount"]
+    orgAmt=amt
     newAmt=""
     if buy:
         newAmt=str(int(n)+int(orgAmt))
@@ -137,7 +149,9 @@ def getStocks(name):
     db=Connection['EmotionStock']
     user=db.players
     player=user.find({'name':str(name)})
-    return player['stocks']
+    for item in player:
+        result=item["stocks"]
+    return result
 
 def getMoney(name):
     """
@@ -147,4 +161,17 @@ def getMoney(name):
     db=Connection['EmotionStock']
     user=db.players
     player=user.find({'name':str(name)})
-    return float(player["money"])
+    for item in player:
+        result=item["money"]
+    return result
+
+def getSoul(name):
+    """
+    returns value of 'soul' for a player
+    """
+    db=Connection["EmotionStock"]
+    user=db.players
+    player=user.find({"name":str(name)})
+    for item in player:
+        result=item["soul"]
+    return result
