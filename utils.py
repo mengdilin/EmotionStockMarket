@@ -35,6 +35,12 @@ def authenticate(name):
         return False
     return True
 
+def auth_stock(name):
+    db=Connection["EmotionStock"]
+    stock=players.find_one({"stock":name})
+    if stock == None:
+        return False
+    return True
 '''
 parameters:
       name:string
@@ -45,7 +51,7 @@ returns:
 '''
 def buy_stock(name,stock,count):
     db=Connection["EmotionStock"]
-    if (authenticate(name)):
+    if (authenticate(name) and auth_stock(stock)):
         user=players.find_one({"name":name})
         stocks={"stock":stock,"shares":count}
         cost=get_stock_price(stock)*count
@@ -68,7 +74,7 @@ returns:
 '''
 def sell_stock(name,stock,count):
     db=Connection["EmotionStock"]
-    if (authenticate(name)):
+    if (authenticate(name) and auth_stock(stock)):
         stocks=get_stocks(name)
         for item in stocks:
             if item["stock"]==stock:
