@@ -400,4 +400,5 @@ if __name__=="__main__":
     count=1
     #add_user(name)
     buy_stock(name,stock,count)
+    sell_soul(name,10)#needs to be tested
     #print players.find_one({"name":"mengdi"})
