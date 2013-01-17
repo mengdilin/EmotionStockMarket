@@ -114,12 +114,14 @@ def get_stocks(user):
         return stock
 
 def get_market():
+    db=Connection["EmotionStock"]
     stocks=[]
     for item in market.find():
         stocks.append(item)
     return stocks
 
 def get_stocks_names():
+    db=Connection["EmotionStock"]
     stocks=get_market()
     names=[]
     for item in stocks:
@@ -166,9 +168,11 @@ def buy_soul(name,soul):
     else:
         return False
 def get_soul(name):
+    db=Connection["EmotionStock"]
     user=players.find_one({"name":name})
     return user["soul"]
 def get_bank_soul(name):
+    db=Connection["EmotionStock"]
     if in_bank(name):
         user=bank.find_one({"name":name})
         return user["soul"]
@@ -200,13 +204,13 @@ def update_price(name):
 '''
 def auth():
     db = Connection.admin
-    res=db.authenticate('ml7','ml7')
+    res=db.authenticate("ml7","ml7")
     # connect to database
 
 
 def setup():
     """
-    creates dict of 'Emotions'
+    creates dict of "Emotions"
     """
     elist=["happy","love","sad","tired","bored","mad","sick"]
     db=Connection["EmotionStock"]
@@ -219,20 +223,20 @@ def add_user(name):
     adds players to the database
     DONE
     """
-    db=Connection['EmotionStock']
+    db=Connection["EmotionStock"]
     users=db.players
     if not name in getPlayers():
-        player={"name":str(name),"money":"1000","soul":"100",'stocks':{}}
+        player={"name":str(name),"money":"1000","soul":"100","stocks":{}}
         users.insert(player)
 
 def add_stock(name,stock,n,c):
     """
     calls changeMoney
     adds stock type & # of stocks
-    deducts n(#of stock)*c(price per stock) from 'money'
+    deducts n(#of stock)*c(price per stock) from "money"
     OUTLINE DONE
     """
-    db=Connection['EmotionStock']
+    db=Connection["EmotionStock"]
     user=db.players
     emotion={"emotion":stock, "amount":c}
     if hasMoney(name,n,c):
@@ -241,17 +245,17 @@ def add_stock(name,stock,n,c):
         else:
             stocks=getStocks(name)
             nstocks=stocks.insert(emotion)
-            users.update({'name':str(name)},{"$push":{'stocks':nstocks} } )
+            users.update({"name":str(name)},{"$push":{"stocks":nstocks} } )
         changeMoney(name,n,c,True)
 
 def remove_stock(name,stock,n,c):
     """
     calls changeMoney
-    removes n amount from stock 'stock'
-    adds n*c to 'money'
+    removes n amount from stock "stock"
+    adds n*c to "money"
     DONE
     """
-    db=Connection['EmotionStock']
+    db=Connection["EmotionStock"]
     user=db.players
     if hasStock(name,stock):
         updateStock(name,stock,n,False)
@@ -259,14 +263,14 @@ def remove_stock(name,stock,n,c):
 
 def changeMoney(name,n,c,buy):
     """
-    Changes the money in a player's account after buy/sell stock
+    Changes the money in a players account after buy/sell stock
     name:used to identify player
     n:number of stocks
     c:price per stock
-    'buy' is a boolean: True if buying stock; False otherwise
+    "buy" is a boolean: True if buying stock; False otherwise
     DONE
     """
-    db=Connection['EmotionStock']
+    db=Connection["EmotionStock"]
     user=db.players
     cost=int(float(n))*int(float(c))
     myMoney=getMoney(name)
@@ -274,7 +278,7 @@ def changeMoney(name,n,c,buy):
         myMoney=myMoney-cost
     else:
         myMoney=myMoney+cost
-    user.update({'name':str(name)},{"$push": {"money":myMoney}})
+    user.update({"name":str(name)},{"$push": {"money":myMoney}})
 
 def updateStock(name,stock,n,buy):
     """
@@ -306,12 +310,12 @@ def updateStock(name,stock,n,buy):
 
 def hasMoney(name,n,c):
     """
-    verifies that user isn't bankrupt
+    verifies that user is not bankrupt
     DONE
     """
-    db=Connection['EmotionStock']
+    db=Connection["EmotionStock"]
     user=db.players
-    player=user.find({'name':str(name)})
+    player=user.find({"name":str(name)})
     myMoney=float(player["money"])
     cost=int(n)*int(c)
     total=myMoney-cost
@@ -319,15 +323,15 @@ def hasMoney(name,n,c):
     
 def hasStock(name,stock):
     """
-    returns boolean: True if has 'stock'; False if it doesn't
+    returns boolean: True if has "stock"; False if it does not
     DONE
     """
     stocks=getStocks(name)
-    return (stocks.find({'name':str(stock)}).count())>0
+    return (stocks.find({"name":str(stock)}).count())>0
 
 def getPlayers():
     """
-    returns a list of the player's names
+    returns a list of the players names
     DONE
     """
     db=Connection['EmotionStock']
@@ -335,7 +339,7 @@ def getPlayers():
     players=user.find()
     names=[]
     for line in players:
-        names.append(line['name'])
+        names.append(line["name"])
     return names
 
 def getStocks(name):
@@ -343,28 +347,28 @@ def getStocks(name):
     returns dictionary of stocks for a given player
     DONE
     """
-    db=Connection['EmotionStock']
+    db=Connection["EmotionStock"]
     user=db.players
-    player=user.find({'name':str(name)})
+    player=user.find({"name":str(name)})
     for item in player:
         result=item["stocks"]
     return result
 
 def getMoney(name):
     """
-    returns player's money
+    returns players money
     DONE
     """
-    db=Connection['EmotionStock']
+    db=Connection["EmotionStock"]
     user=db.players
-    player=user.find({'name':str(name)})
+    player=user.find({"name":str(name)})
     for item in player:
         result=item["money"]
     return result
 
 def getSoul(name):
     """
-    returns value of 'soul' for a player
+    returns value of "soul" for a player
     """
     db=Connection["EmotionStock"]
     user=db.players
@@ -378,12 +382,15 @@ def getSoul(name):
 testing purpose only
 '''
 def delete_players():
+    db=Connection["EmotionStock"]
     players.drop()
 
 def delete_market():
+    db=Connection["EmotionStock"]
     market.drop()
 
 def get_stock(name):
+    db=Connection["EmotionStock"]
     return market.find_one({"stock":name})
 
 if __name__=="__main__":
