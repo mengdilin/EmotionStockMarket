@@ -132,8 +132,6 @@ def get_stock_price(name):
     stock=market.find_one({"stock":name})
     return stock["data"][len(stock["data"])-1]["price"]
 
-#added by GY 1.15.12; not tested
-
 #soul:string
 def sell_soul(name,soul):
     db=Connection["EmotionStock"]
@@ -159,11 +157,11 @@ def buy_soul(name,soul):
         user["money"]=user["money"]-(int(soul)*100)
         user["soul"]=user["soul"]+int(soul)
         buser=bank.find_one({"name":name})
-        buser["soul"]=buser["soul"]-soul
+        buser["soul"]=buser["soul"]-int(soul)
+        bank.update({"name":name},buser)
         if buser["soul"]==0:
             bank.remove(buser)
-        else:
-            bank.update({"name":name},buser)
+        players.update({"name":str(name)},user)
         return True
     else:
         return False
@@ -222,6 +220,8 @@ if __name__=="__main__":
     stock="happy"
     count=1
     #add_user(name)
-    buy_stock(name,stock,count)
-    sell_soul(name,10)#needs to be tested
+    #buy_stock(name,stock,count)
+    #sell_soul(name,10)
+    #buy_soul(name,10)
+    #print bank.find_one({"name":"mengdi"})
     #print players.find_one({"name":"mengdi"})
