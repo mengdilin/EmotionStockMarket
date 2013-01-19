@@ -41,3 +41,6 @@ def setup1(keyword):
 #real_time(a[0])
 #print get_times()
 
+#print setup1("ugh")
+#love(200+);happy(90-100);bored(30-50);tired(10-20);sad(5-15);mad(0-10);sick(~20);excited(~20);
+

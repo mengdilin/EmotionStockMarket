@@ -20,7 +20,8 @@ def logout():
 def login():
     if request.method=='GET':
         return render_template('login.html')
-    elif request.form['login']=='google':
+    elif request.form['button']=='GOOGLE':
+        #print "clicked"
         url=googleauth.build_redirect_url()
         return redirect(url)
 
