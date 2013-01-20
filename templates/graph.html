@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <head>
-  <script src="http://www.exratione.com/assets/raphael.1.5.2.min.js"
-	  type="text/javascript" charset="utf-8"></script> 
-  <script src="http://www.exratione.com/assets/g.raphael.0.4.1.min.js"
-	  type="text/javascript" charset="utf-8"></script> 
-  <script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
-	  type="text/javascript" charset="utf-8"></script> 
-  <script src="http://www.exratione.com/assets/date.format.1.2.3.min.js"
-    type="text/javascript" charset="utf-8"></script> 
-  <script src="/static/js/jquery.js"></script>
-  <style type="text/css"> 
+  <title>Emotion Graphs</title>
+  <link href="static/css/bootstrap-responsive.css" rel="stylsheet">
+  <link  href="static/css/bootstrap.css" rel="stylesheet">
+
+  <style > 
     h1 {
     font-size:200%;
+    }
+    body{
+    padding-top:60px;
+    padding-left:30px;
     }
     .chartWrapper {
     position:relative;
     margin: 50px auto;
-    float:center;
+    display:inline-block;
     width:500px;
     height:200px;
     border: solid;
+    padding-left:40px
+    padding-right:40px
     }
     .label {
     position:absolute;
@@ -86,9 +87,33 @@
 
   </style> 
 </head>
+<body>
+
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+	<div class="container">
+	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </a>
+	  <a class="brand" href="/profile">Emotion Stock Market</a>
+	  <div class="nav-collapse navbar-responsive-collapse in collapse">
+	    <ul class="nav">
+	      <li><a href="/profile">Profile</a></li>
+	      <li><a href="#">Home</a></li>
+	      <li class="active"><a href="/graph">Stock Market</a></li>
+	      <li><a href="/bank">Bank</a></li>
+	    </ul>
+	  <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
+	  </div> <!-- /.nav-collapse --> 
+	</div>
+      </div>
+    </div>
+   
 <div class="label">
-<h1>bored</h1>
-price={{bored}}
+  <h1>bored</h1>
+  price={{bored}}
 </div>
 <div class="labeltwo">
 <h1>love</h1>
@@ -115,15 +140,24 @@ price={{mad}}
 <h1>sick</h1>
 price={{sick}}
 </div>
-<div id="bored" class="chartWrapper"></div> 
-<div id="love" class="chartWrapper"></div>
-<div id="sad" class="chartWrapper"></div>
-
-<div id="tired" class="chartWrapper"></div>
-<div id="happy" class="chartWrapper"></div>
-<div id="mad" class="chartWrapper"></div>
-<div id="sick" class="chartWrapper"></div>
+<div id="bored" class="chartWrapper"></div>
+<p><div id="love" class="chartWrapper"></div>
+<p><div id="sad" class="chartWrapper"></div>
+<p><div id="tired" class="chartWrapper"></div>
+<p><div id="happy" class="chartWrapper"></div>
+<p><div id="mad" class="chartWrapper"></div>
+<p><div id="sick" class="chartWrapper"></div>
  
+<script src="http://www.exratione.com/assets/raphael.1.5.2.min.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="http://www.exratione.com/assets/g.raphael.0.4.1.min.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="http://www.exratione.com/assets/date.format.1.2.3.min.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="/static/js/jquery-1.7.2.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
 
 <script type="text/javascript"> 
 function time(){
