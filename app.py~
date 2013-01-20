@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import session,render_template,url_for,redirect,request
 import urllib2,json
-import googleauth,utils,otterapi
+import googleauth,utils
 from bson import BSON, json_util
 
 app = Flask(__name__)
@@ -24,19 +24,16 @@ def login():
 
 @app.route('/updateStocks')
 def updateStocks():
-    date=utils.get_date()
-    if (date == 0 or date < otterapi.get_times()[2]):
-        print date
-        utils.update_date(otterapi.get_times()[2])
-        print utils.get_date()
-        utils.update_market()
+    if (update_date == 0 or update_date < otterapi.get_times()[2]):
+        names=utils.get_stocks_names()
+        for name in names:
+            utils.update_price(name)
         return True
     else:
         return False
 
 @app.route('/getStocks')
 def getStocks():
-    updateStocks()
     return json.dumps(utils.get_market(),sort_keys=True,indent=4,default=json_util.default)
 
 #Oauth

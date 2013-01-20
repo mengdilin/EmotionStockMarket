@@ -7,8 +7,7 @@ res=db.authenticate('ml7','ml7')
 players=db.players
 market=db.market
 bank=db.bank
-date=db.date
-count = 0
+
 #name:string
 def add_user(name):
     db=Connection['EmotionStock']
@@ -101,6 +100,14 @@ def sell_stock(name,stock,count):
         players.update({"name":name},user)
         return True
     return False
+
+def market_setup():
+    db=Connection["EmotionStock"]
+    names=["happy","love","sad","tired","bored","mad","sick"]
+    for name in names:
+        count=otterapi.setup(name)
+        stock={"stock":name,"last count":count[1],"data":[{"time":"01/14","price":400}]}
+        market.insert(stock)
 
 #return: list of stocks for a specific user
 def get_stocks(user):
@@ -207,38 +214,15 @@ def update_market():
     for name in names:
         update_price(name)
 
-
 def update_price(name):
     db=Connection["EmotionStock"]
     stock=market.find_one({"stock":name})
     count=otterapi.setup(name)[1]
     time=otterapi.setup(name)[0]
-    price=stock["data"][len(stock["data"])-1]["price"]*(1+((count-stock["last count"])/(stock["last count"]*100)))
+    price=stock["data"][len(stock["data"])-1]["price"]*(1+((count-stock["last count"])/100))
     data=({"time":time,"price":price})
     stock["last count"]=count
     market.update({"stock":name},{"$push":{"data":data}})
-
-def market_setup():
-    db=Connection["EmotionStock"]
-    names=["happy","love","sad","tired","bored","mad","sick"]
-    for name in names:
-        count=otterapi.setup(name)
-        stock={"stock":name,"last count":count[1],"data":[{"time":"01/14","price":400}]}
-        market.insert(stock)
-
-def date_setup():
-    db=Connection["EmotionStock"]
-    last_date={"last date":0}
-    date.insert(last_date)
-
-def update_date(stuff):
-    db=Connection["EmotionStock"]
-    date.update({"last date":get_date()},{"$set":{"last date":stuff}})
-
-def get_date():
-    db=Connection["EmotionStock"]
-    tmp=date.find_one()
-    return tmp["last date"]
 
 '''
 testing purpose only
@@ -257,7 +241,6 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     count=1
-    #update_date(5)
     #delete_market()
     #market_setup()
     #print get_market()
