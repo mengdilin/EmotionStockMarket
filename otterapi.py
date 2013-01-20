@@ -29,9 +29,9 @@ def get_times():
 
 #convert from unix time to real time
 def real_time(atime):
-    realtime=datetime.datetime.fromtimestamp(int(float(atime))).strftime('%m/%d')
-    return realtime
-    
+    realtime=datetime.datetime.fromtimestamp(int(float(atime))).strftime('%m.%d')
+    return float(realtime)
+
 #gets count for keyword on twitter from the last 5 minutes
 def setup1(keyword):
     a=datetime.datetime.now()-datetime.timedelta(seconds=5*60)
@@ -43,8 +43,7 @@ def setup1(keyword):
 
 
 #a = get_times()
-#real_time(a[0])
-print get_times()[2]
+#print real_time(get_times()[2])
 
 #print setup1("ugh")
 #love(200+);happy(90-100);bored(30-50);tired(10-20);sad(5-15);mad(0-10);sick(~20);excited(~20);

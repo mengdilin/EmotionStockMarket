@@ -223,7 +223,7 @@ def market_setup():
     names=["happy","love","sad","tired","bored","mad","sick"]
     for name in names:
         count=otterapi.setup(name)
-        stock={"stock":name,"last count":count[1],"data":[{"time":"01/14","price":400}]}
+        stock={"stock":name,"last count":count[1],"data":[{"time":01.14,"price":400}]}
         market.insert(stock)
 
 def date_setup():
@@ -258,8 +258,8 @@ if __name__=="__main__":
     stock="happy"
     count=1
     #update_date(5)
-    #delete_market()
-    #market_setup()
+    delete_market()
+    market_setup()
     #print get_market()
     #add_user(name)
     #buy_stock(name,stock,count)
@@ -267,3 +267,6 @@ if __name__=="__main__":
     #buy_soul(name,10)
     #print bank.find_one({"name":"mengdi"})
     #print players.find_one({"name":"mengdi"})
+    add_user(name)
+    buy_stock(name,stock,count)
+    print get_stock(name)

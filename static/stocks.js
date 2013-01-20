@@ -8,14 +8,15 @@ function getStocks(){
 	    for (var data in stock["data"]){
 		stockx.push(data["time"]);
 	    }
-	    return stockx;
+	    console.log(stockx);
+
 	}
     });
 }
 
 
 
-function charts(){
+function charts(x,y){
     var r = Raphael("simpleExample");
     var chart = r.g.linechart(
 	10, 10,      // top left anchor
@@ -39,10 +40,4 @@ function charts(){
 		"#555599"        // the second line is blue
 	    ]
 	});
-}
-
-$(document).ready(function(){
-
-    getStocks;
-    charts;
 }

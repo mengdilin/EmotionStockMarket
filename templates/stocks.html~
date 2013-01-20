@@ -7,6 +7,7 @@
   <script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
 	  type="text/javascript" charset="utf-8"></script> 
   <script src="/static/js/jquery.js"></script>
+ 
   <style type="text/css"> 
     .chartWrapper {
     margin: 15px auto;
@@ -14,17 +15,15 @@
     }
   </style> 
 </head>
-<div id="a" class="chartWrapper"></div> 
- 
+
 <script type="text/javascript"> 
-function happy(){
-  var r = Raphael("a");
+  var r = Raphael("simpleExample");
   var chart = r.g.linechart(
     10, 10,      // top left anchor
     490, 180,    // bottom right anchor
     [
-       [1, 2, 3, 4, 5, 6, 7],        // red line x-values
-       [3.5, 4.5, 5.5, 6.5, 7, 8]    // blue line x-values
+      [1, 2, 3, 4, 5, 6, 7],        // red line x-values
+      [3.5, 4.5, 5.5, 6.5, 7, 8]    // blue line x-values
     ], 
     [
       [12, 20, 23, 15, 17, 27, 22], // red line y-values
@@ -41,10 +40,5 @@ function happy(){
          "#555599"        // the second line is blue
        ]
      });
-}
-
-window.onload=happy
-
-
 </script> 
 <html>

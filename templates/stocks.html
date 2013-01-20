@@ -1,29 +1,27 @@
+<!DOCTYPE html>
+<head>
+  <script src="http://www.exratione.com/assets/raphael.1.5.2.min.js"
+	  type="text/javascript" charset="utf-8"></script> 
+  <script src="http://www.exratione.com/assets/g.raphael.0.4.1.min.js"
+	  type="text/javascript" charset="utf-8"></script> 
+  <script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
+	  type="text/javascript" charset="utf-8"></script> 
+  <script src="/static/js/jquery.js"></script>
+ 
+  <style type="text/css"> 
+    #happy {
+    margin: 15px auto;
+    text-align: center;
+    }
+  </style> 
+</head>
 
-function getStocks(){
-    $.getJSON('/getStocks',function(stocks){
+<div id="happy">
+</div>
 
+<script type="text/javascript"> 
 
-
-
-    })
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-function charts(x,y){
-    var r = Raphael("simpleExample");
+    var r = Raphael("happy");
     var chart = r.g.linechart(
 	10, 10,      // top left anchor
 	490, 180,    // bottom right anchor
@@ -46,4 +44,6 @@ function charts(x,y){
 		"#555599"        // the second line is blue
 	    ]
 	});
-}
+
+
+<html>
