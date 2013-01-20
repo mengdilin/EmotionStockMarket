@@ -43,7 +43,7 @@
     <div class="container">
       <p><i><h1>{{d}}</h1></i></p>
       <div id="bank" class="span4">
-	<p><h3>My Bank:</h3>
+	<p><h3>Central Bank:</h3>
 	  <table class="table table-hover table-bordered table-condensed">
 	    <thead>
 	      <tr>
@@ -54,21 +54,29 @@
 	    </thead>
 	    <tbody>
 	      <tr>
-		<td><h4>Percentage</h4></td>
+		<td><h4>Soul (%)</h4></td>
 		<td>{{b}}%</td>
 		<td>{{soul}}%</td>
 	      </tr>
 	    </tbody>
 	  </table>
+	<p class="lead"><b>Who owns my soul?</p></b>
+	<small><p class="text-error">RED=Percentage of soul sold for $$$.</p>
+	  <p class="text-success">GREEN=Percentage of soul still MINE.</p></small>
+	<div class="progress progress-striped active">
+	  <div class="bar bar-success" style="width:{{soul}}%;"></div>
+	  <div class="bar bar-danger" style="width:{{b}}%;"></div>
+	</div>
 	<br></br>
-	<h4>Please select a percentage of your soul to sell:</h4>
-	<select id="selling">
-	  <option>{{b}}</option>
-	</select>
-  	<br></br>
-	<br></br>
-	<p><button class="btn btn-large btn-primary" type="submit" name="button" value="MARKET">MARKET</button>
-	<br></br>
+	<h4>Sell my Soul:</h4>
+	<input name="selling" type="text" placeholder="give me the $$$">	<p><button type="submit" class="btn btn-danger" name="button" value="Sell">SELL</button>
+  	  <br></br>
+	  <h4>Redeemption:</h4>
+	  <small>Buy back your soul</small>
+	  <input name="buying" type="text" placeholder="i'm not evil">
+	<p><button type="submit" class="btn btn-primary" name="button" value="Buy">BUY</button>
+	  <br></br>
+	  <br></br>
       </div>
     </div>
     
