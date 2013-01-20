@@ -58,7 +58,6 @@ def getStockNames():
     return json.dumps(utils.get_stocks_names(),sort_keys=True,indent=4,default=json_util.default)
 
 @app.route('/profile',methods=["GET","POST"])
-
 def profile():
     if not session.has_key('user'):
         return redirect(url_for('login'))
@@ -70,7 +69,7 @@ def profile():
         return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
     elif request.method=="POST":
         if request.form["button"]=="MARKET":
-            return render_template("graph.html")
+            return redirect(url_for('graph'))
         elif request.form["button"]=="Logout":
             return redirect(url_for("logout"))
     return render_template("login.html")
@@ -81,15 +80,16 @@ def graph():
         return redirect(url_for('login'))
     elif request.method == "GET":
         prices=utils.get_market_y()
-        sad=prices["sad"][len(prices["sad"])-1]
-        bored=prices["bored"][len(prices["bored"])-1]
-        love=prices["love"][len(prices["love"])-1]
-        tired=prices["tired"][len(prices["tired"])-1]
-        happy=prices["happy"][len(prices["happy"])-1]
-        sick=prices["sick"][len(prices["sick"])-1]
-        mad=prices["mad"][len(prices["mad"])-1]
-        return render_template("graph.html",bored=bored,love=love,tired=tired,happy=happy,sick=sick,mad=mad,sad=sad); 
-    
+        sadp=prices["sad"][len(prices["sad"])-1]
+        boredp=prices["bored"][len(prices["bored"])-1]
+        lovep=prices["love"][len(prices["love"])-1]
+        tiredp=prices["tired"][len(prices["tired"])-1]
+        happyp=prices["happy"][len(prices["happy"])-1]
+        sickp=prices["sick"][len(prices["sick"])-1]
+        madp=prices["mad"][len(prices["mad"])-1]
+        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
+
+
 #Oauth
 '''
 @app.route("/")
@@ -126,5 +126,6 @@ def googleoauth2callback():
 '''
 if __name__=="__main__":
     app.debug=True
+    updateStocks()
     app.run()
 
