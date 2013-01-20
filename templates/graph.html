@@ -88,25 +88,32 @@
 </head>
 <div class="label">
 <h1>bored</h1>
+price={{bored}}
 </div>
 <div class="labeltwo">
 <h1>love</h1>
+price={{love}}
 </div>
 
 <div class="labelthree">
 <h1>sad</h1>
+price={{sad}}
 </div>
 <div class="labelfour">
 <h1>tired</h1>
+price={{tired}}
 </div>
 <div class="labelfive">
 <h1>happy</h1>
+price={{happy}}
 </div>
 <div class="labelsix">
 <h1>mad</h1>
+price={{mad}}
 </div>
 <div class="labelseven">
 <h1>sick</h1>
+price={{sick}}
 </div>
 <div id="bored" class="chartWrapper"></div> 
 <div id="love" class="chartWrapper"></div>
@@ -117,6 +124,7 @@
 <div id="mad" class="chartWrapper"></div>
 <div id="sick" class="chartWrapper"></div>
  
+
 <script type="text/javascript"> 
 function time(){
 var a =  [1358658000.0, 1358571600.0, 1358485200.0, 1358398800.0, 1358312400.0, 1358226000.0, 1358139600.0, 1358053200.0, 1357966800.0, 1357880400.0];
@@ -164,6 +172,11 @@ function getStockNames(){
     });
 }
 
+function updateStocks(){
+$.getJSON('/getStocks',function(){});
+
+}
+
 function setChart(r,name){
     $.getJSON('/getStocks',function(stocks)
     {
@@ -186,28 +199,40 @@ function setChart(r,name){
              console.log(y);
 
          }
-
          chart(r,name,x,y);
      }
     );
 
 }
 
+function clear(){
+document.getElementById("bored").innerHTML="";
+document.getElementById("love").innerHTML="";
+document.getElementById("tired").innerHTML="";
+document.getElementById("happy").innerHTML="";
+document.getElementById("mad").innerHTML="";
+document.getElementById("sick").innerHTML="";
+document.getElementById("sad").innerHTML="";
+
+}
+
 window.onload = function(){
-var a = Raphael("bored");
-setChart(a,"bored");
-var b = Raphael("love");
-setChart(b,"love");
-var c = Raphael("sad");
-setChart(c,"sad");
-var d = Raphael("tired");
-setChart(d,"tired");
-var e = Raphael("happy");
-setChart(e,"happy");
-var f = Raphael("mad");
-setChart(f,"mad");
-var g = Raphael("sick");
-setChart(g,"sick");
+//var a = Raphael("bored");
+//var b = Raphael("love");
+//var c = Raphael("sad");
+//var d = Raphael("tired");
+//var e = Raphael("happy");
+//var f = Raphael("mad");
+//var g = Raphael("sick");
+
+setChart(Raphael("bored"),"bored");
+setChart(Raphael("love"),"love");
+setChart(Raphael("sad"),"sad");
+setChart(Raphael("tired"),"tired");
+setChart(Raphael("happy"),"happy");
+setChart(Raphael("sick"),"sick");
+setChart(Raphael("mad"),"mad");
+
 }
 
 
