@@ -65,16 +65,18 @@
 	  <p class="text-success">GREEN=Percentage of soul still MINE.</p></small>
 	<div class="progress progress-striped active">
 	  <div class="bar bar-success" style="width:{{soul}}%;"></div>
-	  <div class="bar bar-danger" style="width:{{b}}&;"></div>
+	  <div class="bar bar-danger" style="width:{{b}}%;"></div>
 	</div>
 	<br></br>
-	<h4>Please select a percentage of your soul to sell:</h4>
-	<select id="selling">
-	  <option>{{soul}}</option>
-	</select>
-  	<br></br>
-	<br></br>
-	<br></br>
+	<h4>Sell my Soul:</h4>
+	<input name="selling" type="text" placeholder="give me the $$$">	<p><button type="submit" class="btn btn-danger" name="button" value="Sell">SELL</button>
+  	  <br></br>
+	  <h4>Redeemption:</h4>
+	  <small>Buy back your soul</small>
+	  <input name="buying" type="text" placeholder="i'm not evil">
+	<p><button type="submit" class="btn btn-primary" name="button" value="Buy">BUY</button>
+	  <br></br>
+	  <br></br>
       </div>
     </div>
     

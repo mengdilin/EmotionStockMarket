@@ -67,14 +67,7 @@ def profile():
         stock=utils.get_stocks(d)
         soul=utils.get_soul(d)
         return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
-    elif request.method=="POST":
-        if request.form["button"]=="MARKET":
-            return render_template("graph.html")
-        elif request.form["button"]=="Bank":
-            return render_template("bank.html")
-        elif request.form["button"]=="Logout":
-            return redirect(url_for("logout"))
-    return render_template("login.html")
+    return redirect(url_for(profile))
 
 @app.route('/bank', methods=["GET","POST"])
 def bank():
@@ -86,13 +79,17 @@ def bank():
         b=100-soul
         return render_template('bank.html', d=d, soul=soul, b=b)
     elif request.method=="POST":
-        if request.form["button"]=="MARKET":
-            return render_template("graph.html")
-        elif request.form["button"]=="Profile":
-            return render_template("profile.html")
-        elif request.form["button"]=="Logout":
-            return redirect(url_for("logout"))
-    return render_template("login.html")
+        button=request.form["button"]
+        d=session["user"]
+        if button=="Sell":
+            amt_sell=int(request.form['selling'])
+            value=utils.sell_soul(d,amt_sell)
+            return redirect(url_for("bank"))
+        elif button=="Buy":
+            amt_buy=int(request.form['buying'])
+            value=utils.buy_soul(d,amt_buy)
+            return redirect(url_for("bank"))
+    return redirect(url_for("profile"))
 
 @app.route('/graph',methods=["GET","POST"])
 def graph():
