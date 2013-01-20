@@ -117,7 +117,7 @@ def graph():
             text=request.form[str(value[0])+" sold"]
             if (text!=""):
                 utils.sell_stock(d,str(value[0]),int(text))
-        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,value=value[0],text=text,d=d);
+        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
 
 '''
         if (value[1]=="buy"):
