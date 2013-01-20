@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<form action="profile" method="POST">
+<form action="bank" method="POST">
   <head>
     <title>Emotion Stock Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,12 +27,12 @@
 	  <a class="brand" href="/profile">Emotion Stock Market</a>
 	  <div class="nav-collapse navbar-responsive-collapse in collapse">
 	    <ul class="nav">
-	      <li class="active">
-		<a href="/profile">Profile</a>
-	      </li>
+	      <li><a href="/profile">Profile</a></li>
 	      <li><a href="#">Home</a></li>
 	      <li><a href="#">Stock Market</a></li>
-	      <li><a href="/bank">Bank</a></li>
+	      <li class="active">
+		<a href="/bank">Bank</a>
+	      </li>
 	    </ul>
 	  <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
 	  </div> <!-- /.nav-collapse --> 
@@ -42,29 +42,33 @@
     
     <div class="container">
       <p><i><h1>{{d}}</h1></i></p>
-      <p class="text-success"><span class="label label-success">Money</span> : ${{ money }}</p>
-      <p class="text-error"><span class="label label-important">Soul</span>: {{ soul }}%</p>
-      <div id="stocks" class="span4">
-	<p><h3>My Stocks:</h3>
+      <div id="bank" class="span4">
+	<p><h3>My Bank:</h3>
 	  <table class="table table-hover table-bordered table-condensed">
 	    <thead>
 	      <tr>
-		<td><h4>Stock</h4></td>
-		<td><h4>Shares</h4></td>
+		<td></td>
+		<td><h4>Bank</h4></td>
+		<td><h4>{{d}}</h4></td>
 	  </tr>
 	    </thead>
 	    <tbody>
-	      {% for i in stock %}
 	      <tr>
-		<td>{{ i["stock"] }}</td>
-		<td>{{i["shares"]}}</td>
-		{% endfor %}
+		<td><h4>Percentage</h4></td>
+		<td>{{b}}%</td>
+		<td>{{soul}}%</td>
 	      </tr>
 	    </tbody>
 	  </table>
-	  
-	  
+	<br></br>
+	<h4>Please select a percentage of your soul to sell:</h4>
+	<select id="selling">
+	  <option>{{b}}</option>
+	</select>
+  	<br></br>
+	<br></br>
 	<p><button class="btn btn-large btn-primary" type="submit" name="button" value="MARKET">MARKET</button>
+	<br></br>
       </div>
     </div>
     

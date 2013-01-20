@@ -69,7 +69,27 @@ def profile():
         return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
     elif request.method=="POST":
         if request.form["button"]=="MARKET":
-            return redirect(url_for('graph'))
+            return render_template("graph.html")
+        elif request.form["button"]=="Bank":
+            return render_template("bank.html")
+        elif request.form["button"]=="Logout":
+            return redirect(url_for("logout"))
+    return render_template("login.html")
+
+@app.route('/bank', methods=["GET","POST"])
+def bank():
+    if not session.has_key('user'):
+        return redirect(url_for('login'))
+    elif request.method=="GET":
+        d=session['user']
+        soul=utils.get_soul(d)
+        b=100-soul
+        return render_template('bank.html', d=d, soul=soul, b=b)
+    elif request.method=="POST":
+        if request.form["button"]=="MARKET":
+            return render_template("graph.html")
+        elif request.form["button"]=="Profile":
+            return render_template("profile.html")
         elif request.form["button"]=="Logout":
             return redirect(url_for("logout"))
     return render_template("login.html")
@@ -87,7 +107,6 @@ def graph():
         happyp=prices["happy"][len(prices["happy"])-1]
         sickp=prices["sick"][len(prices["sick"])-1]
         madp=prices["mad"][len(prices["mad"])-1]
-        
         return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
 
         
@@ -129,4 +148,3 @@ if __name__=="__main__":
     app.debug=True
     updateStocks()
     app.run()
-
