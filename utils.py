@@ -108,14 +108,6 @@ def sell_stock(name,stock,count):
         return True
     return False
 
-def market_setup():
-    db=Connection["EmotionStock"]
-    names=["happy","love","sad","tired","bored","mad","sick"]
-    for name in names:
-        count=otterapi.setup(name)
-        stock={"stock":name,"last count":count[1],"data":[{"time":"01/14","price":400}]}
-        market.insert(stock)
-
 #return: list of stocks for a specific user
 def get_stocks(user):
     db=Connection["EmotionStock"]
