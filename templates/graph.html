@@ -18,7 +18,6 @@
     display:inline-block;
     width:500px;
     height:200px;
-    border: solid;
     padding-left:40px
     padding-right:40px
     }
@@ -28,74 +27,19 @@
     float:right;
     width: 250px;
     height: 200px;
-    border: solid;
     }
     .box {
     position:relative;
     margin:15px auto;
     float:center;
     width:800px;
-    height:250px;
+    height:300px;
     border:solid;
     }
-    .labeltwo {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:305px;
-    }
-    .labelthree {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:560px;
-    }
-    .labelfour {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:815px;
-    }
-    .labelfive {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:1070px;
-    }
-    .labelsix {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:1325px;
-    }
-    .labelseven {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:1580px;
-    }
-
   </style> 
 </head>
 <body>
+ <body bgcolor="#212122">
   
   <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
@@ -109,7 +53,6 @@
 	<div class="nav-collapse navbar-responsive-collapse in collapse">
 	  <ul class="nav">
 	    <li><a href="/profile">Profile</a></li>
-	    <li><a href="#">Home</a></li>
 	    <li class="active"><a href="/graph">Stock Market</a></li>
 	    <li><a href="/bank">Bank</a></li>
 	  </ul>
@@ -121,11 +64,19 @@
   
 
 <br></br>
+<form class="form-search" action="graph" method="POST">
 <div class="box">
   <div id="bored" class="chartWrapper"></div> 
   <div class="fontWrapper"> 
+    value={{value}}
+    text={{text}}
+    d={{d}}
     <h1>bored</h1>
-    price={{boredp}}
+    price={{boredp}}<br></br>
+    <input name="bored" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="bored buy">BUY</button>
+    <input name="bored sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="bored sell">SELL</button>
   </div>
 </div>
 
@@ -133,7 +84,11 @@
   <div id="love" class="chartWrapper"></div> 
   <div class="fontWrapper"> 
     <h1>love</h1>
-    price={{lovep}}
+    price={{lovep}}<br></br>
+    <input name="love" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="love buy">BUY</button>
+    <input name="love sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="love sell">SELL</button>
   </div>
 </div>
 
@@ -142,7 +97,11 @@
   <div id="sad" class="chartWrapper"></div>
   <div class="fontWrapper">
     <h1>sad</h1>
-    price={{sadp}}
+    price={{sadp}}<br></br>
+    <input name="sad" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="sad buy">BUY</button>
+    <input name="sad sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="sad sell">SELL</button>
   </div>
 </div>
 
@@ -150,7 +109,11 @@
   <div id="tired" class="chartWrapper"></div>
   <div class="fontWrapper">
     <h1>tired</h1>
-    price={{tiredp}}
+    price={{tiredp}}<br></br>
+    <input name="tired" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="tired buy">BUY</button>
+    <input name="tired sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="tired sell">SELL</button>
   </div>
 </div>
 
@@ -158,7 +121,11 @@
 <div id="happy" class="chartWrapper"></div>
   <div class="fontWrapper">
     <h1>happy</h1>
-    price={{happyp}}
+    price={{happyp}}<br></br>
+    <input name="happy" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="happy buy">BUY</button>
+    <input name="happy sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="happy sell">SELL</button>
   </div>
 </div>
 
@@ -166,7 +133,11 @@
 <div id="mad" class="chartWrapper"></div>
   <div class="fontWrapper">
     <h1>mad</h1>
-    price={{madp}}
+    price={{madp}}<br></br>
+    <input name="mad" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="mad buy">BUY</button>
+    <input name="mad sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="mad sell">SELL</button>
   </div>
 </div>
 
@@ -174,10 +145,16 @@
 <div id="sick" class="chartWrapper"></div>
   <div class="fontWrapper">
     <h1>sick</h1>
-    price={{sickp}}
+    price={{sickp}}<br></br>
+    <input name="sick" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="sick buy">BUY</button>
+    <input name="sick sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="sick sell">SELL</button>
   </div>
 
 </div>
+</form>
+<!--
 <div id="bored" class="chartWrapper"></div>
 <p><div id="love" class="chartWrapper"></div>
 <p><div id="sad" class="chartWrapper"></div>
@@ -185,7 +162,7 @@
 <p><div id="happy" class="chartWrapper"></div>
 <p><div id="mad" class="chartWrapper"></div>
 <p><div id="sick" class="chartWrapper"></div>
- 
+ -->
 <script src="http://www.exratione.com/assets/raphael.1.5.2.min.js"
 	type="text/javascript" charset="utf-8"></script> 
 <script src="http://www.exratione.com/assets/g.raphael.0.4.1.min.js"

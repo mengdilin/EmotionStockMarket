@@ -67,14 +67,7 @@ def profile():
         stock=utils.get_stocks(d)
         soul=utils.get_soul(d)
         return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
-    elif request.method=="POST":
-        if request.form["button"]=="MARKET":
-            return render_template("graph.html")
-        elif request.form["button"]=="Bank":
-            return render_template("bank.html")
-        elif request.form["button"]=="Logout":
-            return redirect(url_for("logout"))
-    return render_template("login.html")
+    return redirect(url_for(profile))
 
 @app.route('/bank', methods=["GET","POST"])
 def bank():
@@ -86,36 +79,51 @@ def bank():
         b=100-soul
         return render_template('bank.html', d=d, soul=soul, b=b)
     elif request.method=="POST":
-        if request.form["button"]=="MARKET":
-            return render_template("graph.html")
-        elif request.form["button"]=="Profile":
-            return render_template("profile.html")
-        elif request.form["button"]=="Sell":
-            amount=request.form["selling"]
-            if utils.sell_soul(d, amount):
-                return redirect(url_for("profile"))
-            else:
-                return redirect(url_for("profile"))
-        elif request.form["button"]=="Logout":
-            return redirect(url_for("logout"))
-    return render_template("login.html")
+        button=request.form["button"]
+        d=session["user"]
+        if button=="Sell":
+            amt_sell=int(request.form['selling'])
+            value=utils.sell_soul(d,amt_sell)
+            return redirect(url_for("bank"))
+        elif button=="Buy":
+            amt_buy=int(request.form['buying'])
+            value=utils.buy_soul(d,amt_buy)
+            return redirect(url_for("bank"))
+    return redirect(url_for("profile"))
 
 @app.route('/graph',methods=["GET","POST"])
 def graph():
     if not session.has_key('user'):
         return redirect(url_for('login'))
-    elif request.method == "GET":
-        prices=utils.get_market_y()
-        sadp=prices["sad"][len(prices["sad"])-1]
-        boredp=prices["bored"][len(prices["bored"])-1]
-        lovep=prices["love"][len(prices["love"])-1]
-        tiredp=prices["tired"][len(prices["tired"])-1]
-        happyp=prices["happy"][len(prices["happy"])-1]
-        sickp=prices["sick"][len(prices["sick"])-1]
-        madp=prices["mad"][len(prices["mad"])-1]
+    prices=utils.get_market_y()
+    sadp=prices["sad"][len(prices["sad"])-1]
+    boredp=prices["bored"][len(prices["bored"])-1]
+    lovep=prices["love"][len(prices["love"])-1]
+    tiredp=prices["tired"][len(prices["tired"])-1]
+    happyp=prices["happy"][len(prices["happy"])-1]
+    sickp=prices["sick"][len(prices["sick"])-1]
+    madp=prices["mad"][len(prices["mad"])-1]
+    if request.method == "GET":
         return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
+    if request.method == "POST":
+        d=session['user']
+        value=request.form["button"]
+        value=value.split(" ")
+        if (str(value[1])=="buy"):
+            text=request.form[str(value[0])]
+            if (text!=""):
+                utils.buy_stock(d,str(value[0]),int(text))
+        if (str(value[1])=="sell"):
+            text=request.form[str(value[0])+" sold"]
+            if (text!=""):
+                utils.sell_stock(d,str(value[0]),int(text))
+        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,value=value[0],text=text,d=d);
 
-        
+'''
+        if (value[1]=="buy"):
+            utils.buy_stock(d,value[0],text)
+'''       
+
 #Oauth
 '''
 @app.route("/")

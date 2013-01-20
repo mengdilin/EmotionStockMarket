@@ -97,7 +97,7 @@ def buy_stock(name,stock,count):
     if (authenticate(name) and auth_stock(stock)):
         user=players.find_one({"name":name})
         cost=get_stock_price(stock)*count
-        if (user["money"]<cost):
+        if (user["money"]<cost or count < 0):
             return False
         else:
             user["money"]=user["money"]-cost
@@ -127,6 +127,8 @@ def sell_stock(name,stock,count):
         stocks=get_stocks(name)
         for item in stocks:
             if item["stock"]==stock:
+                if (item["shares"]<count):
+                    return False
                 item["shares"]=item["shares"]-count
                 if item["shares"]==0:
                     stocks.remove(item)
@@ -304,6 +306,7 @@ if __name__=="__main__":
     #market_setup()
     name="mengdi"
     stock="happy"
+    print get_stocks("test")
     #update_price(stock);
     #print get_stock(stock);
     count=1
