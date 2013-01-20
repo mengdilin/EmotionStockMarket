@@ -1,9 +1,0 @@
-<!doctype html>
-<html>
-<head>
-<script src="/static/gRaphael/g.bar.js">
-<script src="/static/gRaphael/g.dot.js">
-<script src="/static/gRaphael/g.line.js">
-<script src="/static/gRaphael/g.pie.js">
-<script src="/static/gRaphael/g.raphael.js">
-</head>

@@ -8,6 +8,10 @@ client_id=urllib.quote('790726607376.apps.googleusercontent.com')
 redirect_url=urllib.quote('http://ml7.stuycs.org:4500/googleoauth2callback')
 client_secret="tAZSoVWiY-vGeiqJlZ0-9VVh"
 
+#later replace 127.0.0.1:5000 in redirect_url
+original_url= 'http://ml7.stuycs.org:4500'
+
+test_url='http://127.0.0.1:5000'
 
 # This makes the url that we should rediret the user to if they
 # want to login using google
