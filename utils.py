@@ -134,32 +134,32 @@ def get_stock_price(name):
     stock=market.find_one({"stock":name})
     return stock["data"][len(stock["data"])-1]["price"]
 
-#soul:string
+#soul:int
 def sell_soul(name,soul):
     db=Connection["EmotionStock"]
-    if get_soul(name)<=int(soul):
+    if get_soul(name)<=soul:
         return False
     else:
         user=players.find_one({"name":name})
-        user["money"]=user["money"]+int(soul)*100
-        user["soul"]=user["soul"]-int(soul)
+        user["money"]=user["money"]+soul*100
+        user["soul"]=user["soul"]-soul
         if in_bank(name):
             buser=bank.find_one({"name":name})
-            buser["soul"]=buser["soul"]+int(soul)
+            buser["soul"]=buser["soul"]+soul
             bank.update({"name":name},buser)
         else:
-            nbalance={"name":name,"soul":int(soul)}
+            nbalance={"name":name,"soul":soul}
             bank.insert(nbalance)
         players.update({"name":name},user)
         return True
 def buy_soul(name,soul):
     db=Connection["EmotionStock"]
     user=players.find_one({"name":name})
-    if get_bank_soul(name)>=int(soul) and user["money"]>=int(soul)*100:
-        user["money"]=user["money"]-(int(soul)*100)
-        user["soul"]=user["soul"]+int(soul)
+    if get_bank_soul(name)>=soul and user["money"]>=soul*100:
+        user["money"]=user["money"]-(soul*100)
+        user["soul"]=user["soul"]+soul
         buser=bank.find_one({"name":name})
-        buser["soul"]=buser["soul"]-int(soul)
+        buser["soul"]=buser["soul"]-soul
         bank.update({"name":name},buser)
         if buser["soul"]==0:
             bank.remove(buser)
