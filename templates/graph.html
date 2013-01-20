@@ -22,12 +22,20 @@
     padding-left:40px
     padding-right:40px
     }
-    .label {
-    position:absolute;
-    right:250px;
-    float:left;
-    width:400px;
-    height:200px;
+    .fontWrapper {
+    position:relative;
+    margin: 15px auto;
+    float:right;
+    width: 250px;
+    height: 200px;
+    border: solid;
+    }
+    .box {
+    position:relative;
+    margin:15px auto;
+    float:center;
+    width:800px;
+    height:250px;
     border:solid;
     }
     .labeltwo {
@@ -88,57 +96,87 @@
   </style> 
 </head>
 <body>
-
-    <div class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner">
-	<div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	  </a>
-	  <a class="brand" href="/profile">Emotion Stock Market</a>
-	  <div class="nav-collapse navbar-responsive-collapse in collapse">
-	    <ul class="nav">
-	      <li><a href="/profile">Profile</a></li>
-	      <li><a href="#">Home</a></li>
-	      <li class="active"><a href="/graph">Stock Market</a></li>
-	      <li><a href="/bank">Bank</a></li>
-	    </ul>
+  
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</a>
+	<a class="brand" href="/profile">Emotion Stock Market</a>
+	<div class="nav-collapse navbar-responsive-collapse in collapse">
+	  <ul class="nav">
+	    <li><a href="/profile">Profile</a></li>
+	    <li><a href="#">Home</a></li>
+	    <li class="active"><a href="/graph">Stock Market</a></li>
+	    <li><a href="/bank">Bank</a></li>
+	  </ul>
 	  <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
-	  </div> <!-- /.nav-collapse --> 
-	</div>
+	</div> <!-- /.nav-collapse --> 
       </div>
     </div>
-   
-<div class="label">
-  <h1>bored</h1>
-  price={{bored}}
-</div>
-<div class="labeltwo">
-<h1>love</h1>
-price={{love}}
+  </div>
+  
+
+<br></br>
+<div class="box">
+  <div id="bored" class="chartWrapper"></div> 
+  <div class="fontWrapper"> 
+    <h1>bored</h1>
+    price={{boredp}}
+  </div>
 </div>
 
-<div class="labelthree">
-<h1>sad</h1>
-price={{sad}}
+<div class="box">
+  <div id="love" class="chartWrapper"></div> 
+  <div class="fontWrapper"> 
+    <h1>love</h1>
+    price={{lovep}}
+  </div>
 </div>
-<div class="labelfour">
-<h1>tired</h1>
-price={{tired}}
+
+
+<div class="box">
+  <div id="sad" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>sad</h1>
+    price={{sadp}}
+  </div>
 </div>
-<div class="labelfive">
-<h1>happy</h1>
-price={{happy}}
+
+<div class="box">
+  <div id="tired" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>tired</h1>
+    price={{tiredp}}
+  </div>
 </div>
-<div class="labelsix">
-<h1>mad</h1>
-price={{mad}}
+
+<div class="box">
+<div id="happy" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>happy</h1>
+    price={{happyp}}
+  </div>
 </div>
-<div class="labelseven">
-<h1>sick</h1>
-price={{sick}}
+
+<div class="box">
+<div id="mad" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>mad</h1>
+    price={{madp}}
+  </div>
+</div>
+
+<div class="box">
+<div id="sick" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>sick</h1>
+    price={{sickp}}
+  </div>
+
 </div>
 <div id="bored" class="chartWrapper"></div>
 <p><div id="love" class="chartWrapper"></div>
