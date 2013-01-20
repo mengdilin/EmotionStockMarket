@@ -1,27 +1,10 @@
 from flask import Flask
 from flask import session,render_template,url_for,redirect,request
-import googleauth,utils
+import googleauth
 
 app = Flask(__name__)
 app.secret_key="secret key" # Since we'll be using sessions
 
-@app.route("/")
-def index():
-    if not session.has_key('user'):
-        return redirect(url_for('login'))
-    return render_template("index.html",d=session['user'])
-
-@app.route('/login',methods=['GET','POST'])
-def login():
-    if request.method=="GET":
-        return render_template('login.html')
-    elif request.form['button']=='GOOGLE':
-        username=request.form['username']
-        utils.add_user(username)
-        return render_template("graph.html")
-
-#Oauth
-'''
 @app.route("/")
 def index():
     if not session.has_key('user'):
@@ -58,7 +41,7 @@ def googleoauth2callback():
     userinfo=googleauth.access_token_to_info(access_token)
     session['user']=userinfo
     return redirect(url_for('index'));
-'''
+
 if __name__=="__main__":
     app.debug=True
     app.run()

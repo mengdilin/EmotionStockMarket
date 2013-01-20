@@ -5,10 +5,10 @@ scope=urllib.quote('https://www.googleapis.com/auth/userinfo.profile https://www
 
 # These are all from the Google api console
 client_id=urllib.quote('790726607376.apps.googleusercontent.com')
-redirect_url=urllib.quote('http://ml7.stuycs.org:4500/googleoauth2callback')
+redirect_url=urllib.quote(test_url+'/googleoauth2callback')
 client_secret="tAZSoVWiY-vGeiqJlZ0-9VVh"
 
-#later replace 127.0.0.1:5000 in redirect_url
+#later replace test_url with original_url
 original_url= 'http://ml7.stuycs.org:4500'
 
 test_url='http://127.0.0.1:5000'

@@ -14,6 +14,8 @@ def add_user(name):
     if not name in get_players():
         player={"name":str(name),"money":10000,"soul":100,'stocks':[]}
         players.insert(player)
+    else:
+        return False
 
 def get_players():
     db=Connection['EmotionStock']
@@ -219,6 +221,8 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     count=1
+    add_user("blah")
+    print get_players()
     #add_user(name)
     #buy_stock(name,stock,count)
     #sell_soul(name,10)
