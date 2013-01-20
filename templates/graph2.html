@@ -36,6 +36,9 @@
     height:300px;
     border:solid;
     }
+    .warning {
+    text-align:center;
+    }
   </style> 
 </head>
 <body>
@@ -65,8 +68,10 @@
 
 <br></br>
 <form class="form-search" action="graph" method="POST">
- 
-
+ <div class="alert alert-success">
+   <button type="button" class="close" data-dismiss="alert">&times;</button>
+   <p class="warning"><strong>Successful Transaction!</strong></p>
+</div>
 <div class="box">
   <div id="bored" class="chartWrapper"></div> 
   <div class="fontWrapper"> 

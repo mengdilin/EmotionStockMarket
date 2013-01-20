@@ -219,8 +219,7 @@ def buy_soul(name,soul):
             bank.remove(buser)
         players.update({"name":str(name)},user)
         return True
-    else:
-        return False
+    return False
 
 #returns an int 
 def get_soul(name):
@@ -306,7 +305,7 @@ if __name__=="__main__":
     #market_setup()
     name="mengdi"
     stock="happy"
-    print get_stocks("test")
+
     #update_price(stock);
     #print get_stock(stock);
     count=1
@@ -319,7 +318,8 @@ if __name__=="__main__":
     #add_user(name)
     #buy_stock(name,stock,count)
     #print auth_stock("happy")
-    #sell_stock(name,stock,count)
+    #sell_stock(name,stock,10)
+    #print get_stocks(name)
     #sell_soul(name,10)
     #buy_soul(name,10)
 
