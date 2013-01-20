@@ -26,15 +26,13 @@ def login():
 @app.route('/updateStocks')
 def updateStocks():
     date=utils.get_date()
-    utils.update_market()
-'''
     if (date == 0 or date < otterapi.get_times()[2]):
         utils.update_date(otterapi.get_times()[2])
         utils.update_market()
         return True
     else:
         return False
-'''
+
 @app.route("/logout")
 def logout():
     session.pop('user')

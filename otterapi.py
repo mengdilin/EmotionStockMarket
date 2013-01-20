@@ -14,7 +14,9 @@ def setup(keyword):
     return [float(yesterdaytime),result["response"]["total"]]
 
 def get_date():
-    return update_date
+    mintime1=datetime.date.today() - datetime.timedelta(5)
+    mintime=float(time.mktime(mintime1.timetuple()))
+    return mintime;
 
 def update(new_date):
     update_date=new_date
