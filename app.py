@@ -53,6 +53,7 @@ def getYcoords():
 @app.route('/stockNames')
 def getStockNames():
     return json.dumps(utils.get_stocks_names(),sort_keys=True,indent=4,default=json_util.default)
+
 @app.route('/profile',methods=["GET","POST"])
 def profile():
     if not session.has_key('user'):
@@ -66,6 +67,8 @@ def profile():
     elif request.method=="POST":
         if request.form["button"]=="MARKET":
             return render_template("graph.html")
+        elif request.form["button"]=="Logout":
+            return redirect(url_for("logout"))
     return render_template("login.html")
         
         
