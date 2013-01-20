@@ -17,6 +17,7 @@ def add_user(name):
     else:
         return False
 
+#returns a list
 def get_players():
     db=Connection['EmotionStock']
     names=[]
@@ -24,6 +25,14 @@ def get_players():
         names.append(line['name'])
     return names
 
+#returns an int
+def get_money(user):
+    if authenticate(user):
+        db=Connection['EmotionStock']
+        name=players.find_one({"name":user})
+        return name["money"]
+    else:
+        return False
 '''
 parameters:
         name:string
@@ -42,6 +51,7 @@ def auth_stock(name):
     if stock == None:
         return False
     return True
+
 '''
 parameters:
       name:string
@@ -73,7 +83,6 @@ parameters:
 returns:
       boolean
 '''
-
 def sell_stock(name,stock,count):
     db=Connection["EmotionStock"]
     if (authenticate(name) and auth_stock(stock)):
@@ -91,13 +100,6 @@ def sell_stock(name,stock,count):
         return True
     return False
 
-'''
-parameters:
-      name:string
-returns:
-      list of dictionaries
-'''
-
 def market_setup():
     db=Connection["EmotionStock"]
     name=["happy","love","sad","tired","bored","mad","sick"]
@@ -106,6 +108,7 @@ def market_setup():
         stock={"stock":name,"last count":count[1],"data":[{"time":"01/14","price":400}]}
         market.insert(stock)
 
+#return: list of stocks for a specific user
 def get_stocks(user):
     db=Connection["EmotionStock"]
     if(authenticate(user)):
@@ -115,6 +118,7 @@ def get_stocks(user):
             stock.append(item)
         return stock
 
+#get all the stocks' data 
 def get_market():
     db=Connection["EmotionStock"]
     stocks=[]
@@ -122,6 +126,7 @@ def get_market():
         stocks.append(item)
     return stocks
 
+#get all stocks' name in the market
 def get_stocks_names():
     db=Connection["EmotionStock"]
     stocks=get_market()
@@ -130,36 +135,43 @@ def get_stocks_names():
         names.append(str(item["stock"]))
     return names
 
+#get a specific stock's dictionary 
+def get_stock(name):
+    db=Connection["EmotionStock"]
+    return market.find_one({"stock":name})
+
+#get a specific stock's price
 def get_stock_price(name):
     stock=market.find_one({"stock":name})
     return stock["data"][len(stock["data"])-1]["price"]
 
-#soul:string
+#soul:int
 def sell_soul(name,soul):
     db=Connection["EmotionStock"]
-    if get_soul(name)<=int(soul):
+    if get_soul(name)<=soul:
         return False
     else:
         user=players.find_one({"name":name})
-        user["money"]=user["money"]+int(soul)*100
-        user["soul"]=user["soul"]-int(soul)
+        user["money"]=user["money"]+soul*100
+        user["soul"]=user["soul"]-soul
         if in_bank(name):
             buser=bank.find_one({"name":name})
-            buser["soul"]=buser["soul"]+int(soul)
+            buser["soul"]=buser["soul"]+soul
             bank.update({"name":name},buser)
         else:
-            nbalance={"name":name,"soul":int(soul)}
+            nbalance={"name":name,"soul":soul}
             bank.insert(nbalance)
         players.update({"name":name},user)
         return True
+
 def buy_soul(name,soul):
     db=Connection["EmotionStock"]
     user=players.find_one({"name":name})
-    if get_bank_soul(name)>=int(soul) and user["money"]>=int(soul)*100:
-        user["money"]=user["money"]-(int(soul)*100)
-        user["soul"]=user["soul"]+int(soul)
+    if get_bank_soul(name)>=soul and user["money"]>=soul*100:
+        user["money"]=user["money"]-(soul*100)
+        user["soul"]=user["soul"]+soul
         buser=bank.find_one({"name":name})
-        buser["soul"]=buser["soul"]-int(soul)
+        buser["soul"]=buser["soul"]-soul
         bank.update({"name":name},buser)
         if buser["soul"]==0:
             bank.remove(buser)
@@ -167,10 +179,13 @@ def buy_soul(name,soul):
         return True
     else:
         return False
+
+#returns an int 
 def get_soul(name):
     db=Connection["EmotionStock"]
     user=players.find_one({"name":name})
     return user["soul"]
+
 def get_bank_soul(name):
     db=Connection["EmotionStock"]
     if in_bank(name):
@@ -178,6 +193,7 @@ def get_bank_soul(name):
         return user["soul"]
     else:
         return -1
+
 def in_bank(name):
     db=Connection["EmotionStock"]
     names=[]
@@ -189,7 +205,6 @@ def in_bank(name):
 
 '''
 called daily by JS timer
-might be a bug since I assumed data is pushed to the end of the list
 '''
 def update_price(name):
     db=Connection["EmotionStock"]
@@ -212,17 +227,13 @@ def delete_market():
     db=Connection["EmotionStock"]
     market.drop()
 
-def get_stock(name):
-    db=Connection["EmotionStock"]
-    return market.find_one({"stock":name})
 
 if __name__=="__main__":
     #market_setup()
     name="mengdi"
     stock="happy"
     count=1
-    add_user("blah")
-    print get_players()
+    print get_market()
     #add_user(name)
     #buy_stock(name,stock,count)
     #sell_soul(name,10)
