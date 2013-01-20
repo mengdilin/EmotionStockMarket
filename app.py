@@ -58,7 +58,6 @@ def getStockNames():
     return json.dumps(utils.get_stocks_names(),sort_keys=True,indent=4,default=json_util.default)
 
 @app.route('/profile',methods=["GET","POST"])
-
 def profile():
     if not session.has_key('user'):
         return redirect(url_for('login'))
@@ -74,8 +73,30 @@ def profile():
         elif request.form["button"]=="Logout":
             return redirect(url_for("logout"))
     return render_template("login.html")
-        
-        
+
+@app.route('/bank',methods=["GET","POST"])
+def bank():
+    if not session.has_key('user'):
+        return redirect(url_for('login'))
+    elif request.method=="GET":
+        d=session['user']
+        soul=utils.get_soul(d)
+        banksoul=utils.get_bank_soul(d)
+        return render_template('bank.html',d=d,soul=soul,banksoul=banksoul)
+    elif request.method=='POST':
+        button=request.form['button']
+        d=session['user']
+        if button=="Buy":
+            amt=request.form['amt_buy']
+            utils.buy_soul(d,amt)
+            return redirect(url_for(bank))
+        elif button=="Sell":
+            amt=request.form['amt_sell']
+            utils.sell_soul(d,amt)
+            return redirect(url_for(bank))
+        return redirect(url_for(profile))
+    return redirect(url_for(logout))
+    
 #Oauth
 '''
 @app.route("/")
