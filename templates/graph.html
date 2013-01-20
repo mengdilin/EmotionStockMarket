@@ -6,6 +6,8 @@
 	  type="text/javascript" charset="utf-8"></script> 
   <script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
 	  type="text/javascript" charset="utf-8"></script> 
+  <script src="http://www.exratione.com/assets/date.format.1.2.3.min.js"
+    type="text/javascript" charset="utf-8"></script> 
   <script src="/static/js/jquery.js"></script>
   <style type="text/css"> 
     .chartWrapper {
@@ -22,41 +24,44 @@
 <div id="sick" class="chartWrapper"></div>
  
 <script type="text/javascript"> 
-function chart(r,stock){
+function time(){
+var a =  [1358658000.0, 1358571600.0, 1358485200.0, 1358398800.0, 1358312400.0, 1358226000.0, 1358139600.0, 1358053200.0, 1357966800.0, 1357880400.0];
+
+return a;
+}
+
+function chart(r,stock,x,y){
   var chart = r.g.linechart(
     10, 10,      // top left anchor
     490, 180,    // bottom right anchor
-    [
-    //   getXcoords(stock),
-    ], 
-    [
-   //   getYcoords(stock),
-
-    ], 
+     x,
+     y,
+ 
     {
        nostroke: false,   // lines between points are drawn
        axis: "0 0 1 1",   // draw axes on the left and bottom
        symbol: "disc",    // use a filled circle as the point symbol
-       smooth: true,      // curve the lines to smooth turns on the chart
+       smooth: false,      // curve the lines to smooth turns on the chart
        dash: "-",         // draw the lines dashed
        colors: [
          "#995555",       // the first line is red  
      //    "#555599"        // the second line is blue
        ]
      });
-}
+     var x_axis=chart.axis[0].text.items;
+    // console.log(x_axis[0]);
+     for (var i=0; i<x_axis.length; i++){
+       console.log(x[i]);
+       var date=new Date(x[i]*1000);
+     //  console.log(date);
+        var month=date.getMonth()+1;
+        var day=date.getDate();
+        tmp=month+"/"+day;
+         x_axis[i].attr("text",tmp);
+     }
 
-function getXcoords(){
-    $.getJSON('/getXcoords',function(xcoords){
-        console.log(xcoords);
-        
-    });
-}
 
-function getYcoords(stock){
-    $.getJSON('/getYcoords',function(ycoords){
-        return ycoords[stock];
-    });
+
 }
 
 function getStockNames(){
@@ -65,10 +70,39 @@ function getStockNames(){
     });
 }
 
+function setChart(r,name){
+    $.getJSON('/getStocks',function(stocks)
+    {
+
+        for (var i=0; i<stocks.length; i++)
+        {
+          if (stocks[i]["stock"]===name)
+          {
+            stock=stocks[i];
+           }
+         }
+        var x = [];
+        var y =[];
+         for (var i=0; i<stock["data"].length; i++)
+         {
+             x.push(stock["data"][i]["time"]);
+             y.push(stock["data"][i]["price"]);
+             console.log(x);
+             console.log(y);
+
+         }
+
+         chart(r,name,x,y);
+     }
+    );
+
+}
+
 window.onload = function(){
-//var r = Raphael("bored");
-//chart(r,"bored");
-getXcoords();
+var r = Raphael("bored");
+//setChart(r,"bored");
+chart(r,"bored",time(),[10,15,12,13,14,18.6,15,14,12,40]);
+//console.log(time());
 }
 
 

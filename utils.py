@@ -269,7 +269,7 @@ def market_setup():
     names=["happy","love","sad","tired","bored","mad","sick"]
     for name in names:
         count=otterapi.setup(name)
-        stock={"stock":name,"last count":count[1],"data":[{"time":01.14,"price":400}]}
+        stock={"stock":name,"last count":count[1],"data":[{"time":otterapi.get_times()[2],"price":40}]}
         market.insert(stock)
 
 def date_setup():
@@ -303,8 +303,8 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     count=1
-    print get_market()
-    print get_market_x()
+   
+    print get_market();
     #update_market()
     #print get_market()
     #add_user(name)
