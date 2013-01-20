@@ -54,6 +54,36 @@ def auth_stock(name):
         return False
     return True
 
+def get_market_x():
+    db=Connection["EmotionStock"]
+    x={}
+    for name in get_stocks_names():
+        x[name]=(get_x(name))
+    return x
+
+def get_market_y():
+    db=Connection["EmotionStock"]
+    y={}
+    for name in get_stocks_names():
+        y[name]=(get_y(name))
+    return y
+
+def get_x(stock):
+    db=Connection["EmotionStock"]
+    name=market.find_one({"stock":stock})
+    x=[]
+    for data in name["data"]:
+        x.append(data["time"])
+    return x
+
+def get_y(stock):
+    db=Connection["EmotionStock"]
+    name=market.find_one({"stock":stock})
+    y=[]
+    for data in name["data"]:
+        y.append(data["price"])
+    return y
+
 '''
 parameters:
       name:string
@@ -273,6 +303,9 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     count=1
+    print get_market()
+    print get_market_x()
+    #update_market()
     #print get_market()
     #add_user(name)
     #buy_stock(name,stock,count)

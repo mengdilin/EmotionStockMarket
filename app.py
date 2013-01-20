@@ -40,11 +40,19 @@ def logout():
     session.pop('user')
     return redirect(url_for('login'))
 
-@app.route('/getStocks')
-def getStocks():
+@app.route('/getXcoords')
+def getXcoords():
     updateStocks()
-    return json.dumps(utils.get_market(),sort_keys=True,indent=4,default=json_util.default)
+    return json.dumps(utils.get_market_x(),sort_keys=True,indent=4,default=json_util.default)
 
+@app.route('/getYcoords')
+def getYcoords():
+    updateStocks()
+    return json.dumps(utils.get_market_y(),sort_keys=True,indent=4,default=json_util.default)
+
+@app.route('/stockNames')
+def getStockNames():
+    return json.dumps(utils.get_stocks_names(),sort_keys=True,indent=4,default=json_util.default)
 @app.route('/profile',methods=["GET","POST"])
 def profile():
     if not session.has_key('user'):

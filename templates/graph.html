@@ -10,25 +10,28 @@
   <style type="text/css"> 
     .chartWrapper {
     margin: 15px auto;
-    text-align: center;
     }
   </style> 
 </head>
-<div id="a" class="chartWrapper"></div> 
+<div id="bored" class="chartWrapper"></div> 
+<div id="love" class="chartWrapper"></div>
+<div id="sad" class="chartWrapper"></div>
+<div id="tired" class="chartWrapper"></div>
+<div id="happy" class="chartWrapper"></div>
+<div id="mad" class="chartWrapper"></div>
+<div id="sick" class="chartWrapper"></div>
  
 <script type="text/javascript"> 
-function happy(){
-  var r = Raphael("a");
+function chart(r,stock){
   var chart = r.g.linechart(
     10, 10,      // top left anchor
     490, 180,    // bottom right anchor
     [
-       [1, 2, 3, 4, 5, 6, 7],        // red line x-values
-       [3.5, 4.5, 5.5, 6.5, 7, 8]    // blue line x-values
+    //   getXcoords(stock),
     ], 
     [
-      [12, 20, 23, 15, 17, 27, 22], // red line y-values
-      [10, 20, 30, 25, 15, 28]      // blue line y-values
+   //   getYcoords(stock),
+
     ], 
     {
        nostroke: false,   // lines between points are drawn
@@ -38,12 +41,35 @@ function happy(){
        dash: "-",         // draw the lines dashed
        colors: [
          "#995555",       // the first line is red  
-         "#555599"        // the second line is blue
+     //    "#555599"        // the second line is blue
        ]
      });
 }
 
-window.onload=happy
+function getXcoords(){
+    $.getJSON('/getXcoords',function(xcoords){
+        console.log(xcoords);
+        
+    });
+}
+
+function getYcoords(stock){
+    $.getJSON('/getYcoords',function(ycoords){
+        return ycoords[stock];
+    });
+}
+
+function getStockNames(){
+    $.getJSON('/stockNames',function(stocks){
+        return stocks;
+    });
+}
+
+window.onload = function(){
+//var r = Raphael("bored");
+//chart(r,"bored");
+getXcoords();
+}
 
 
 </script> 
