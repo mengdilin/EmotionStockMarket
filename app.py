@@ -55,6 +55,9 @@ def profile():
         stock=utils.get_stocks(d)
         soul=utils.get_soul(d)
         return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
+    elif request.method=="POST":
+        if request.form["button"]=="MARKET":
+            return render_template("graph.html")
     return render_template("login.html")
         
         
