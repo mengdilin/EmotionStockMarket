@@ -77,7 +77,8 @@ def bank():
         d=session['user']
         soul=utils.get_soul(d)
         b=100-soul
-        return render_template('bank.html', d=d, soul=soul, b=b)
+        money=utils.get_money(d)
+        return render_template('bank.html', d=d, soul=soul, b=b, money=money)
     elif request.method=="POST":
         button=request.form["button"]
         d=session["user"]
