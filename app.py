@@ -24,8 +24,13 @@ def login():
 
 @app.route('/updateStocks')
 def updateStocks():
-    utils.update_price(session["user"])
-    return True
+    if (update_date == 0 or update_date < otterapi.get_times()[2]):
+        names=utils.get_stocks_names()
+        for name in names:
+            utils.update_price(name)
+        return True
+    else:
+        return False
 
 @app.route('/getStocks')
 def getStocks():
