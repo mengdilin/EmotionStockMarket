@@ -10,108 +10,15 @@
     type="text/javascript" charset="utf-8"></script> 
   <script src="/static/js/jquery.js"></script>
   <style type="text/css"> 
-    h1 {
-    font-size:200%;
-    }
     .chartWrapper {
-    position:relative;
-    margin: 50px auto;
-    float:center;
-    width:500px;
-    height:200px;
-    border: solid;
+    margin: 15px auto;
     }
-    .label {
-    position:absolute;
-    right:250px;
-    float:left;
-    width:400px;
-    height:200px;
-    border:solid;
-    }
-    .labeltwo {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:305px;
-    }
-    .labelthree {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:560px;
-    }
-    .labelfour {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:815px;
-    }
-    .labelfive {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:1070px;
-    }
-    .labelsix {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:1325px;
-    }
-    .labelseven {
-    position:absolute;
-    right:250px;
-    float:right;
-    width:400px;
-    height:200px;
-    border:solid;
-    top:1580px;
-    }
-
   </style> 
 </head>
-<div class="label">
-<h1>bored</h1>
-</div>
-<div class="labeltwo">
-<h1>love</h1>
-</div>
-
-<div class="labelthree">
-<h1>sad</h1>
-</div>
-<div class="labelfour">
-<h1>tired</h1>
-</div>
-<div class="labelfive">
-<h1>happy</h1>
-</div>
-<div class="labelsix">
-<h1>mad</h1>
-</div>
-<div class="labelseven">
-<h1>sick</h1>
-</div>
+{{data}}
 <div id="bored" class="chartWrapper"></div> 
 <div id="love" class="chartWrapper"></div>
 <div id="sad" class="chartWrapper"></div>
-
 <div id="tired" class="chartWrapper"></div>
 <div id="happy" class="chartWrapper"></div>
 <div id="mad" class="chartWrapper"></div>
@@ -194,20 +101,9 @@ function setChart(r,name){
 }
 
 window.onload = function(){
-var a = Raphael("bored");
-setChart(a,"bored");
-var b = Raphael("love");
-setChart(b,"love");
-var c = Raphael("sad");
-setChart(c,"sad");
-var d = Raphael("tired");
-setChart(d,"tired");
-var e = Raphael("happy");
-setChart(e,"happy");
-var f = Raphael("mad");
-setChart(f,"mad");
-var g = Raphael("sick");
-setChart(g,"sick");
+var r = Raphael("bored");
+setChart(r,"bored");
+
 }
 
 

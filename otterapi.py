@@ -11,10 +11,12 @@ def setup(keyword):
     api="http://otter.topsy.com/searchdate.json?apikey=4263CB29307E40A28947A235B87A64C1&q=%23"+keyword+"&type=tweet&mintime="+yesterdaytime+"&maxtime="+todaytime
     request=urllib2.urlopen(api)
     result=json.loads(request.read())
-    return [real_time(yesterdaytime),result["response"]["total"]]
+    return [float(yesterdaytime),result["response"]["total"]]
 
 def get_date():
-    return update_date
+    mintime1=datetime.date.today() - datetime.timedelta(5)
+    mintime=float(time.mktime(mintime1.timetuple()))
+    return mintime;
 
 def update(new_date):
     update_date=new_date
@@ -22,9 +24,9 @@ def update(new_date):
 #helper function for setup
 def get_times():
     mintime1=datetime.date.today() - datetime.timedelta(1)
-    mintime=int(time.mktime(mintime1.timetuple()))
+    mintime=float(time.mktime(mintime1.timetuple()))
     maxtime1=datetime.date.today() + datetime.timedelta(1)
-    maxtime=int(time.mktime(maxtime1.timetuple()))
+    maxtime=float(time.mktime(maxtime1.timetuple()))
     return [str(mintime),str(maxtime),mintime,maxtime]
 
 #convert from unix time to real time
@@ -41,6 +43,15 @@ def setup1(keyword):
     result=json.loads(request.read())
     return result["response"]["total"]
 
+
+def create_times():
+    t=[]
+    for index in range(10):
+        mintime1=datetime.date.today() - datetime.timedelta(index)
+        mintime=float(time.mktime(mintime1.timetuple()))
+        t.append(mintime)
+    return t;
+print create_times()
 
 #a = get_times()
 #print real_time(get_times()[2])

@@ -27,9 +27,7 @@ def login():
 def updateStocks():
     date=utils.get_date()
     if (date == 0 or date < otterapi.get_times()[2]):
-        print date
         utils.update_date(otterapi.get_times()[2])
-        print utils.get_date()
         utils.update_market()
         return True
     else:
@@ -50,10 +48,16 @@ def getYcoords():
     updateStocks()
     return json.dumps(utils.get_market_y(),sort_keys=True,indent=4,default=json_util.default)
 
+@app.route('/getStocks/')
+def getStocks():
+    updateStocks()
+    return json.dumps(utils.get_market(),sort_keys=True,indent=4,default=json_util.default)
+
 @app.route('/stockNames')
 def getStockNames():
     return json.dumps(utils.get_stocks_names(),sort_keys=True,indent=4,default=json_util.default)
 @app.route('/profile',methods=["GET","POST"])
+
 def profile():
     if not session.has_key('user'):
         return redirect(url_for('login'))
