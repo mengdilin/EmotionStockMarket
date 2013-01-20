@@ -20,17 +20,36 @@ def login():
     elif request.form['button']=='GOOGLE':
         username=request.form['username']
         utils.add_user(username)
-        return render_template("graph.html")
+        session["user"]=username
+        return redirect(url_for("profile"))
 
 @app.route('/updateStocks')
 def updateStocks():
     utils.update_price(session["user"])
     return True
 
+@app.route("/logout")
+def logout():
+    session.pop('user')
+    return redirect(url_for('login'))
+
 @app.route('/getStocks')
 def getStocks():
     return json.dumps(utils.get_market(),sort_keys=True,indent=4,default=json_util.default)
 
+@app.route('/profile',methods=["GET","POST"])
+def profile():
+    if not session.has_key('user'):
+        return redirect(url_for('login'))
+    elif request.method=="GET":
+        d=session['user']
+        money=utils.get_money(d)
+        stock=utils.get_stocks(d)
+        soul=utils.get_soul(d)
+        return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
+    return render_template("login.html")
+        
+        
 #Oauth
 '''
 @app.route("/")
@@ -38,11 +57,6 @@ def index():
     if not session.has_key('user'):
         return redirect(url_for('login'))
     return render_template("index.html",d=session['user'])
-
-@app.route("/logout")
-def logout():
-    session.pop('user')
-    return redirect(url_for('login'))
 
 @app.route("/login",methods=['GET','POST'])
 def login():

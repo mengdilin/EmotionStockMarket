@@ -48,7 +48,7 @@ def authenticate(name):
 
 def auth_stock(name):
     db=Connection["EmotionStock"]
-    stock=players.find_one({"stock":name})
+    stock=market.find_one({"stock":name})
     if stock == None:
         return False
     return True
@@ -65,13 +65,19 @@ def buy_stock(name,stock,count):
     db=Connection["EmotionStock"]
     if (authenticate(name) and auth_stock(stock)):
         user=players.find_one({"name":name})
-        stocks={"stock":stock,"shares":count}
         cost=get_stock_price(stock)*count
         if (user["money"]<cost):
             return False
         else:
             user["money"]=user["money"]-cost
-        user["stocks"].append(stocks)
+        if stock in get_stocks_user(name):
+            mystocks=user["stocks"]
+            for i in mystocks:
+                if i["stock"]==stock:
+                    i["shares"]=i["shares"]+count
+        else:
+            stocks={"stock":stock,"shares":count}
+            user["stocks"].append(stocks)
         players.update({"name":name},user)
         return True
     return False
@@ -103,7 +109,7 @@ def sell_stock(name,stock,count):
 
 def market_setup():
     db=Connection["EmotionStock"]
-    name=["happy","love","sad","tired","bored","mad","sick"]
+    names=["happy","love","sad","tired","bored","mad","sick"]
     for name in names:
         count=otterapi.setup(name)
         stock={"stock":name,"last count":count[1],"data":[{"time":"01/14","price":400}]}
@@ -117,6 +123,16 @@ def get_stocks(user):
         stock=[]
         for item in name["stocks"]:
             stock.append(item)
+        return stock
+
+#return: names of stocks for a specific user
+def get_stocks_user(user):
+    db=Connection["EmotionStock"]
+    if(authenticate(user)):
+        name=players.find_one({"name":user})
+        stock=[]
+        for item in name["stocks"]:
+            stock.append(item["stock"])
         return stock
 
 #get all the stocks' data 
@@ -234,10 +250,15 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     count=1
-    print get_market()
+    #print get_market()
     #add_user(name)
-    #buy_stock(name,stock,count)
+    buy_stock(name,stock,count)
+    #print auth_stock("happy")
+    #sell_stock(name,stock,count)
     #sell_soul(name,10)
     #buy_soul(name,10)
-    #print bank.find_one({"name":"mengdi"})
-    #print players.find_one({"name":"mengdi"})
+    #print bank.find_one({"name":name})
+    print players.find_one({"name":"mengdi"})
+    #print get_players()
+    
+
