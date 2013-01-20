@@ -98,17 +98,34 @@ def bank():
 def graph():
     if not session.has_key('user'):
         return redirect(url_for('login'))
-    elif request.method == "GET":
-        prices=utils.get_market_y()
-        sadp=prices["sad"][len(prices["sad"])-1]
-        boredp=prices["bored"][len(prices["bored"])-1]
-        lovep=prices["love"][len(prices["love"])-1]
-        tiredp=prices["tired"][len(prices["tired"])-1]
-        happyp=prices["happy"][len(prices["happy"])-1]
-        sickp=prices["sick"][len(prices["sick"])-1]
-        madp=prices["mad"][len(prices["mad"])-1]
+    prices=utils.get_market_y()
+    sadp=prices["sad"][len(prices["sad"])-1]
+    boredp=prices["bored"][len(prices["bored"])-1]
+    lovep=prices["love"][len(prices["love"])-1]
+    tiredp=prices["tired"][len(prices["tired"])-1]
+    happyp=prices["happy"][len(prices["happy"])-1]
+    sickp=prices["sick"][len(prices["sick"])-1]
+    madp=prices["mad"][len(prices["mad"])-1]
+    if request.method == "GET":
         return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
+    if request.method == "POST":
+        d=session['user']
+        value=request.form["button"]
+        value=value.split(" ")
+        if (str(value[1])=="buy"):
+            text=request.form[str(value[0])]
+            if (text!=""):
+                utils.buy_stock(d,str(value[0]),int(text))
+        if (str(value[1])=="sell"):
+            text=request.form[str(value[0])+" sold"]
+            if (text!=""):
+                utils.sell_stock(d,str(value[0]),int(text))
+        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,value=value[0],text=text,d=d);
 
+'''
+        if (value[1]=="buy"):
+            utils.buy_stock(d,value[0],text)
+'''       
 
 #Oauth
 '''
