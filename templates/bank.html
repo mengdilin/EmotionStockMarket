@@ -61,11 +61,21 @@
 	    </tbody>
 	  </table>
 	<br></br>
-	<h4>Please select a percentage of your soul to sell:</h4>
-	<select id="selling">
-	  <option>{{b}}</option>
-	</select>
-  	<br></br>
+	<div class="input-append" id="selling">
+	  <h4>Interested in selling your soul?</h4>
+	  <form action="selling" method="post">
+	    <input class="span2" id="appendInputButton" type="text" name="selling">
+	    <button class="btn" type="button">Sell</button>
+	  </form>
+	</div>
+	<div class="input-append" id="buying">
+	  <h4>Want to buy back your soul?</h4>
+	  <form action="buying" method="post">
+	    <input class="span2" id="appendInputButton" type="text" name="buying">
+	    <button class="btn" type="button">Buy</button>
+	  </form>
+  	</div>
+	<br></br>
 	<br></br>
 	<p><button class="btn btn-large btn-primary" type="submit" name="button" value="MARKET">MARKET</button>
 	<br></br>

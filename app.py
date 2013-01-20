@@ -90,6 +90,12 @@ def bank():
             return render_template("graph.html")
         elif request.form["button"]=="Profile":
             return render_template("profile.html")
+        elif request.form["button"]=="Sell":
+            amount=request.form["selling"]
+            if utils.sell_soul(d, amount):
+                return redirect(url_for("profile"))
+            else:
+                return redirect(url_for("profile"))
         elif request.form["button"]=="Logout":
             return redirect(url_for("logout"))
     return render_template("login.html")
