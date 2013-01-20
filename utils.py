@@ -24,6 +24,13 @@ def get_players():
         names.append(line['name'])
     return names
 
+def get_all_stocks():
+    db=Connection['EmotionStock']
+    stocks=[]
+    for line in market.find():
+        stocks.append(line)
+    return stocks
+
 '''
 parameters:
         name:string

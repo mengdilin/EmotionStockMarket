@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import session,render_template,url_for,redirect,request
+import urllib2,json
 import googleauth,utils
+from bson import BSON, json_util
 
 app = Flask(__name__)
 app.secret_key="secret key" # Since we'll be using sessions
@@ -19,6 +21,15 @@ def login():
         username=request.form['username']
         utils.add_user(username)
         return render_template("graph.html")
+
+@app.route('/updateStocks')
+def updateStocks():
+    utils.update_price(session["user"])
+    return True
+
+@app.route('/getStocks')
+def getStocks():
+    return json.dumps(utils.get_market(),sort_keys=True,indent=4,default=json_util.default)
 
 #Oauth
 '''
