@@ -282,6 +282,7 @@ def update_price(name):
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
     stock["last count"]=count
+    #print [price, count]
     market.update({"stock":name},{"$push":{"data":data}})
     market.update({"stock":name},{"$set":{"last count":count}})
 
@@ -302,8 +303,8 @@ def test(name):
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
     stock["last count"]=count
-    market.update({"stock":name},{"$push":{"data":data}})
-    market.update({"stock":name},{"$set":{"last count":count}})
+    #market.update({"stock":name},{"$push":{"data":data}})
+    #market.update({"stock":name},{"$set":{"last count":count}})
 
 
 def market_setup():
@@ -350,6 +351,7 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     names=["happy","love","sad","tired","bored","mad","sick"]
+    #update_market()
     #print get_stocks_names();
     #print get_market()
     #update_market()
