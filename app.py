@@ -57,6 +57,11 @@ def getStocks():
 def getStockNames():
     return json.dumps(utils.get_stocks_names(),sort_keys=True,indent=4,default=json_util.default)
 
+@app.route('/about', methods=["GET","POST"])
+def about():
+    if request.method=="GET":
+        return render_template('about.html')
+
 @app.route('/profile',methods=["GET","POST"])
 def profile():
     if not session.has_key('user'):
