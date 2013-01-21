@@ -1,30 +1,184 @@
 <!DOCTYPE html>
 <head>
-  <script src="http://www.exratione.com/assets/raphael.1.5.2.min.js"
-	  type="text/javascript" charset="utf-8"></script> 
-  <script src="http://www.exratione.com/assets/g.raphael.0.4.1.min.js"
-	  type="text/javascript" charset="utf-8"></script> 
-  <script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
-	  type="text/javascript" charset="utf-8"></script> 
-  <script src="http://www.exratione.com/assets/date.format.1.2.3.min.js"
-    type="text/javascript" charset="utf-8"></script> 
-  <script src="/static/js/jquery.js"></script>
-  <style type="text/css"> 
+  <title>Emotion Graphs</title>
+  <link href="static/css/bootstrap-responsive.css" rel="stylsheet">
+  <link  href="static/css/bootstrap.css" rel="stylesheet">
+
+  <style > 
+    h1 {
+    font-size:200%;
+    }
+    body{
+    padding-top:60px;
+    padding-left:30px;
+    }
     .chartWrapper {
+    position:relative;
+    margin: 50px auto;
+    display:inline-block;
+    width:500px;
+    height:200px;
+    padding-left:40px
+    padding-right:40px
+    }
+    .fontWrapper {
+    position:relative;
     margin: 15px auto;
-    padding-right:20px
+    float:right;
+    width: 250px;
+    height: 200px;
+    }
+    .box {
+    position:relative;
+    margin:15px auto;
+    float:center;
+    width:800px;
+    height:300px;
+    border:solid;
+    }
+    .warning {
+    text-align:center;
     }
   </style> 
 </head>
-{{data}}
-<div id="bored" class="chartWrapper"></div> 
-<div id="love" class="chartWrapper"></div>
-<div id="sad" class="chartWrapper"></div>
-<div id="tired" class="chartWrapper"></div>
+<body>
+ <body bgcolor="#212122">
+  
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</a>
+	<a class="brand" href="/profile">Emotion Stock Market</a>
+	<div class="nav-collapse navbar-responsive-collapse in collapse">
+	  <ul class="nav">
+	    <li><a href="/profile">Profile</a></li>
+	    <li class="active"><a href="/graph">Stock Market</a></li>
+	    <li><a href="/bank">Bank</a></li>
+	  </ul>
+	  <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
+	</div> <!-- /.nav-collapse --> 
+      </div>
+    </div>
+  </div>
+  
+
+<br></br>
+<form class="form-search" action="graph" method="POST">
+ <div class="alert alert-error">
+   <button type="button" class="close" data-dismiss="alert">&times;</button>
+   <p class="warning"><strong>Transaction Unsuccessful!</strong> You either have NO MONEY! (Sell your SOUL! MWAHAHAHAHAH!) or don't own enough shares of this stock. Too late to cash in! >:D</p>
+</div>
+<div class="box">
+  <div id="bored" class="chartWrapper"></div> 
+  <div class="fontWrapper"> 
+    <h1>bored</h1>
+  
+    price={{boredp}}<br></br>
+    <input name="bored" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="bored buy">BUY</button>
+    <input name="bored sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="bored sell">SELL</button>
+  </div>
+</div>
+
+<div class="box">
+  <div id="love" class="chartWrapper"></div> 
+  <div class="fontWrapper"> 
+    <h1>love</h1>
+    price={{lovep}}<br></br>
+    <input name="love" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="love buy">BUY</button>
+    <input name="love sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="love sell">SELL</button>
+  </div>
+</div>
+
+
+<div class="box">
+  <div id="sad" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>sad</h1>
+    price={{sadp}}<br></br>
+    <input name="sad" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="sad buy">BUY</button>
+    <input name="sad sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="sad sell">SELL</button>
+  </div>
+</div>
+
+<div class="box">
+  <div id="tired" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>tired</h1>
+    price={{tiredp}}<br></br>
+    <input name="tired" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="tired buy">BUY</button>
+    <input name="tired sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="tired sell">SELL</button>
+  </div>
+</div>
+
+<div class="box">
 <div id="happy" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>happy</h1>
+    price={{happyp}}<br></br>
+    <input name="happy" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="happy buy">BUY</button>
+    <input name="happy sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="happy sell">SELL</button>
+  </div>
+</div>
+
+<div class="box">
 <div id="mad" class="chartWrapper"></div>
+  <div class="fontWrapper">
+    <h1>mad</h1>
+    price={{madp}}<br></br>
+    <input name="mad" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="mad buy">BUY</button>
+    <input name="mad sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="mad sell">SELL</button>
+  </div>
+</div>
+
+<div class="box">
 <div id="sick" class="chartWrapper"></div>
- 
+  <div class="fontWrapper">
+    <h1>sick</h1>
+    price={{sickp}}<br></br>
+    <input name="sick" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-success" name="button" value="sick buy">BUY</button>
+    <input name="sick sold" type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-danger" name="button" value="sick sell">SELL</button>
+  </div>
+
+</div>
+</form>
+<!--
+<div id="bored" class="chartWrapper"></div>
+<p><div id="love" class="chartWrapper"></div>
+<p><div id="sad" class="chartWrapper"></div>
+<p><div id="tired" class="chartWrapper"></div>
+<p><div id="happy" class="chartWrapper"></div>
+<p><div id="mad" class="chartWrapper"></div>
+<p><div id="sick" class="chartWrapper"></div>
+ -->
+<script src="http://www.exratione.com/assets/raphael.1.5.2.min.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="http://www.exratione.com/assets/g.raphael.0.4.1.min.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="http://www.exratione.com/assets/date.format.1.2.3.min.js"
+	type="text/javascript" charset="utf-8"></script> 
+<script src="/static/js/jquery-1.7.2.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+
 <script type="text/javascript"> 
 function time(){
 var a =  [1358658000.0, 1358571600.0, 1358485200.0, 1358398800.0, 1358312400.0, 1358226000.0, 1358139600.0, 1358053200.0, 1357966800.0, 1357880400.0];
@@ -66,12 +220,72 @@ function chart(r,stock,x,y){
 
 }
 
-var data = {{data}};
+function getStockNames(){
+    $.getJSON('/stockNames',function(stocks){
+        return stocks;
+    });
+}
+
+function updateStocks(){
+$.getJSON('/getStocks',function(){});
+
+}
+
+function setChart(r,name){
+    $.getJSON('/getStocks',function(stocks)
+    {
+
+        for (var i=0; i<stocks.length; i++)
+        {
+          if (stocks[i]["stock"]===name)
+          {
+            stock=stocks[i];
+	    console.log(stock);
+           }
+         }
+        var x = [];
+        var y =[];
+         for (var i=0; i<stock["data"].length; i++)
+         {
+             x.push(stock["data"][i]["time"]);
+             y.push(stock["data"][i]["price"]);
+             console.log(x);
+             console.log(y);
+
+         }
+         chart(r,name,x,y);
+     }
+    );
+
+}
+
+function clear(){
+document.getElementById("bored").innerHTML="";
+document.getElementById("love").innerHTML="";
+document.getElementById("tired").innerHTML="";
+document.getElementById("happy").innerHTML="";
+document.getElementById("mad").innerHTML="";
+document.getElementById("sick").innerHTML="";
+document.getElementById("sad").innerHTML="";
+
+}
 
 window.onload = function(){
-var r = Raphael("bored");
-setChart(r,"bored");
-console.log(data);
+//var a = Raphael("bored");
+//var b = Raphael("love");
+//var c = Raphael("sad");
+//var d = Raphael("tired");
+//var e = Raphael("happy");
+//var f = Raphael("mad");
+//var g = Raphael("sick");
+
+setChart(Raphael("bored"),"bored");
+setChart(Raphael("love"),"love");
+setChart(Raphael("sad"),"sad");
+setChart(Raphael("tired"),"tired");
+setChart(Raphael("happy"),"happy");
+setChart(Raphael("sick"),"sick");
+setChart(Raphael("mad"),"mad");
 
 }
 

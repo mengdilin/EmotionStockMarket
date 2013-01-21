@@ -219,8 +219,7 @@ def buy_soul(name,soul):
             bank.remove(buser)
         players.update({"name":str(name)},user)
         return True
-    else:
-        return False
+    return False
 
 #returns an int 
 def get_soul(name):
@@ -259,7 +258,7 @@ def update_market():
 def update_price(name):
     db=Connection["EmotionStock"]
     stock=market.find_one({"stock":name})
-    if len(stock["data"])>5:
+    if len(stock["data"])>6:
         market.update({"stock":name},{"$pop":{"data":-1}});
     count=otterapi.setup(name)[1]
     time=otterapi.setup(name)[0]
@@ -306,8 +305,8 @@ if __name__=="__main__":
     #market_setup()
     name="mengdi"
     stock="happy"
-    print get_stocks("test")
-    #update_price(stock);
+
+    update_price("bored");
     #print get_stock(stock);
     count=1
     #print get_stocks_names();
@@ -319,7 +318,8 @@ if __name__=="__main__":
     #add_user(name)
     #buy_stock(name,stock,count)
     #print auth_stock("happy")
-    #sell_stock(name,stock,count)
+    #sell_stock(name,stock,10)
+    #print get_stocks(name)
     #sell_soul(name,10)
     #buy_soul(name,10)
 

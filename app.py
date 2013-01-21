@@ -11,7 +11,7 @@ app.secret_key="secret key" # Since we'll be using sessions
 def index():
     if not session.has_key('user'):
         return redirect(url_for('login'))
-    return render_template("index.html",d=session['user'])
+    return redirect(url_for("profile"))
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -121,18 +121,57 @@ def graph():
         if (str(value[1])=="buy"):
             text=request.form[str(value[0])]
             if (text!=""):
-                utils.buy_stock(d,str(value[0]),int(text))
+                try:
+                    text=int(text)
+                    holder=utils.buy_stock(d,str(value[0]),int(text))
+                except Exception:
+                    holder=False
+
         if (str(value[1])=="sell"):
             text=request.form[str(value[0])+" sold"]
             if (text!=""):
-                utils.sell_stock(d,str(value[0]),int(text))
+                try:
+                    text=int(text)
+                    holder=utils.sell_stock(d,str(value[0]),int(text))
+                except Exception:
+                    holder=False
+        if (text=="" or holder == False):
+            return redirect(url_for("crash"))
+        else:
+            return redirect(url_for("transact"))
         return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
 
 '''
-        if (value[1]=="buy"):
-            utils.buy_stock(d,value[0],text)
-'''       
 
+
+
+'''
+
+@app.route("/crash", methods=['GET','POST'])
+def crash():
+    if request.method == "GET":
+        prices=utils.get_market_y()
+        sadp=prices["sad"][len(prices["sad"])-1]
+        boredp=prices["bored"][len(prices["bored"])-1]
+        lovep=prices["love"][len(prices["love"])-1]
+        tiredp=prices["tired"][len(prices["tired"])-1]
+        happyp=prices["happy"][len(prices["happy"])-1]
+        sickp=prices["sick"][len(prices["sick"])-1]
+        madp=prices["mad"][len(prices["mad"])-1]
+        return render_template("graph1.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
+
+@app.route("/success",methods=["GET","POST"])
+def transact(): 
+    if request.method == "GET":
+        prices=utils.get_market_y()
+        sadp=prices["sad"][len(prices["sad"])-1]
+        boredp=prices["bored"][len(prices["bored"])-1]
+        lovep=prices["love"][len(prices["love"])-1]
+        tiredp=prices["tired"][len(prices["tired"])-1]
+        happyp=prices["happy"][len(prices["happy"])-1]
+        sickp=prices["sick"][len(prices["sick"])-1]
+        madp=prices["mad"][len(prices["mad"])-1]
+        return render_template("graph2.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
 #Oauth
 '''
 @app.route("/")
