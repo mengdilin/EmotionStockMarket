@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<form action="bank" method="POST">
+<form action="login" method="POST">
   <head>
     <title>Emotion Stock Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,10 +45,7 @@
 	  </div> <!-- /.nav-collapse --> 
 	</div>
       </div>
-    </div>
-
 <br></br>
-<form action="login" method="post">
   <div class="row-fluid">
     <div class="span4 offset5">
       <header><font size="20"><b>
@@ -57,11 +54,12 @@
       <br></br>
       <div class="input-prepend input-append">
 	  <span class="add-on"> Username: </span>
-	  <input class="input-large" id="prependedInput" type="text" name="username">
-	  <button class="btn" type="submit" name="button" value="LOG"> Log in </button>
+	  <input type="text" name="username">
+	  <button class="btn" type="submit" name="button" value="Login">Login</button>
       </div>
       <p><button class="btn btn-large btn-primary" type="submit" name="button" value="GOOGLE">Or use Google!</button>
-
     </div>
-  </form>
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+</form>
 </body>
