@@ -11,7 +11,7 @@ app.secret_key="secret key" # Since we'll be using sessions
 def index():
     if not session.has_key('user'):
         return redirect(url_for('login'))
-    return render_template("index.html",d=session['user'])
+    return redirect(url_for("profile"))
 
 @app.route('/login',methods=['GET','POST'])
 def login():
