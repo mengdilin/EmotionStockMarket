@@ -258,7 +258,7 @@ def update_market():
 def update_price(name):
     db=Connection["EmotionStock"]
     stock=market.find_one({"stock":name})
-    if len(stock["data"])>5:
+    if len(stock["data"])>6:
         market.update({"stock":name},{"$pop":{"data":-1}});
     count=otterapi.setup(name)[1]
     time=otterapi.setup(name)[0]
@@ -306,7 +306,7 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
 
-    #update_price(stock);
+    update_price("bored");
     #print get_stock(stock);
     count=1
     #print get_stocks_names();

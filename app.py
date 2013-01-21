@@ -11,7 +11,7 @@ app.secret_key="secret key" # Since we'll be using sessions
 def index():
     if not session.has_key('user'):
         return redirect(url_for('login'))
-    return render_template("index.html",d=session['user'])
+    return redirect(url_for("profile"))
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -56,6 +56,11 @@ def getStocks():
 @app.route('/stockNames')
 def getStockNames():
     return json.dumps(utils.get_stocks_names(),sort_keys=True,indent=4,default=json_util.default)
+
+@app.route('/about', methods=["GET","POST"])
+def about():
+    if request.method=="GET":
+        return render_template('about.html')
 
 @app.route('/profile',methods=["GET","POST"])
 def profile():
