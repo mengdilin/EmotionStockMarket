@@ -75,7 +75,7 @@ def profile():
         stock=utils.get_stocks(d)
         soul=utils.get_soul(d)
         return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
-    return redirect(url_for(profile))
+    return redirect(url_for('profile'))
 
 @app.route('/bank', methods=["GET","POST"])
 def bank():
@@ -112,8 +112,15 @@ def graph():
     happyp=prices["happy"][len(prices["happy"])-1]
     sickp=prices["sick"][len(prices["sick"])-1]
     madp=prices["mad"][len(prices["mad"])-1]
+    boredi=utils.get_icon("bored")
+    sadi=utils.get_icon("sad")
+    lovei=utils.get_icon("love")
+    tiredi=utils.get_icon("tired")
+    happyi=utils.get_icon("happy")
+    sicki=utils.get_icon("sick")
+    madi=utils.get_icon("mad")
     if request.method == "GET":
-        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
+        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi,sadi=sadi,lovei=lovei,tiredi=tiredi,happyi=happyi,sicki=sicki,madi=madi);
     if request.method == "POST":
         d=session['user']
         value=request.form["button"]
@@ -158,6 +165,7 @@ def crash():
         happyp=prices["happy"][len(prices["happy"])-1]
         sickp=prices["sick"][len(prices["sick"])-1]
         madp=prices["mad"][len(prices["mad"])-1]
+
         return render_template("graph1.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
 
 @app.route("/success",methods=["GET","POST"])

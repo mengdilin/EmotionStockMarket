@@ -184,8 +184,21 @@ def get_stock(name):
 
 #get a specific stock's price
 def get_stock_price(name):
+    db=Connection["EmotionStock"]
     stock=market.find_one({"stock":name})
     return stock["data"][len(stock["data"])-1]["price"]
+
+def get_icon(name):
+    db=Connection["EmotionStock"]
+    stock=market.find_one({"stock":name})
+    price = stock["data"][len(stock["data"])-1]["price"]
+    last_price = stock["data"][len(stock["data"])-2]["price"]
+    if price>last_price:
+        return "Stock Index Up.png"
+    if price==last_price:
+        return "zoom_out.png"
+    if price<last_price:
+        return "Stock Index Down.png"
 
 #soul:int
 def sell_soul(name,soul):
