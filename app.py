@@ -17,11 +17,14 @@ def index():
 def login():
     if request.method=="GET":
         return render_template('login.html')
-    elif request.form['button']=='GOOGLE':
-        username=request.form['username']
-        utils.add_user(username)
-        session["user"]=username
-        return redirect(url_for("profile"))
+    elif request.method=="POST":
+        print "True"
+        if request.form['button']=='Login':
+            username=request.form['username']
+            print username
+            utils.add_user(username)
+            session["user"]=username
+            return redirect(url_for("profile"))
 
 @app.route('/updateStocks')
 def updateStocks():
