@@ -11,7 +11,9 @@ def setup(keyword):
     api="http://otter.topsy.com/searchdate.json?apikey=4263CB29307E40A28947A235B87A64C1&q=%23"+keyword+"&type=tweet&mintime="+yesterdaytime+"&maxtime="+todaytime
     request=urllib2.urlopen(api)
     result=json.loads(request.read())
-    return [float(yesterdaytime),result["response"]["total"]]
+    yesterdaytime=real_time(float(yesterdaytime))
+
+    return [yesterdaytime,result["response"]["total"]]
 
 def get_date():
     mintime1=datetime.date.today() - datetime.timedelta(5)
@@ -31,8 +33,8 @@ def get_times():
 
 #convert from unix time to real time
 def real_time(atime):
-    realtime=datetime.datetime.fromtimestamp(int(float(atime))).strftime('%m.%d')
-    return float(realtime)
+    realtime=datetime.datetime.fromtimestamp(int(float(atime))).strftime('%m/%d')
+    return realtime
 
 #gets count for keyword on twitter from the last 5 minutes
 def setup1(keyword):

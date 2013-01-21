@@ -68,7 +68,7 @@
 <form class="form-search" action="graph" method="POST">
  
 <div class="box">
-  <div id="bored" class="chartWrapper"></div> 
+  <canvas id="bored" class="chartWrapper"></canvas> 
   <div class="fontWrapper"> 
     <h1>bored</h1>
   
@@ -81,7 +81,7 @@
 </div>
 
 <div class="box">
-  <div id="love" class="chartWrapper"></div> 
+  <canvas id="love" class="chartWrapper"></canvas> 
   <div class="fontWrapper"> 
     <h1>love</h1>
     price={{lovep}}<br></br>
@@ -94,7 +94,7 @@
 
 
 <div class="box">
-  <div id="sad" class="chartWrapper"></div>
+  <canvas id="sad" class="chartWrapper"></canvas>
   <div class="fontWrapper">
     <h1>sad</h1>
     price={{sadp}}<br></br>
@@ -106,7 +106,7 @@
 </div>
 
 <div class="box">
-  <div id="tired" class="chartWrapper"></div>
+  <canvas id="tired" class="chartWrapper"></canvas>
   <div class="fontWrapper">
     <h1>tired</h1>
     price={{tiredp}}<br></br>
@@ -118,7 +118,7 @@
 </div>
 
 <div class="box">
-<div id="happy" class="chartWrapper"></div>
+<canvas id="happy" class="chartWrapper"></canvas>
   <div class="fontWrapper">
     <h1>happy</h1>
     price={{happyp}}<br></br>
@@ -130,7 +130,7 @@
 </div>
 
 <div class="box">
-<div id="mad" class="chartWrapper"></div>
+<canvas id="mad" class="chartWrapper"></canvas>
   <div class="fontWrapper">
     <h1>mad</h1>
     price={{madp}}<br></br>
@@ -142,7 +142,7 @@
 </div>
 
 <div class="box">
-<div id="sick" class="chartWrapper"></div>
+<canvas id="sick" class="chartWrapper"></canvas>
   <div class="fontWrapper">
     <h1>sick</h1>
     price={{sickp}}<br></br>
@@ -163,17 +163,17 @@
 <p><div id="mad" class="chartWrapper"></div>
 <p><div id="sick" class="chartWrapper"></div>
  -->
-<script src="http://www.exratione.com/assets/raphael.1.5.2.min.js"
-	type="text/javascript" charset="utf-8"></script> 
-<script src="http://www.exratione.com/assets/g.raphael.0.4.1.min.js"
-	type="text/javascript" charset="utf-8"></script> 
-<script src="http://www.exratione.com/assets/g.line.0.4.2.altered.js"
-	type="text/javascript" charset="utf-8"></script> 
-<script src="http://www.exratione.com/assets/date.format.1.2.3.min.js"
-	type="text/javascript" charset="utf-8"></script> 
-<script src="/static/js/jquery-1.7.2.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
-
+<script src="../static/libraries/RGraph.line.js"></script>
+<script src="../static/libraries/RGraph.common.core.js"></script>
+<script src="../static/js/jquery-1.7.2.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/libraries/RGraph.common.annotate.js"></script> 
+<script src="../static/libraries/RGraph.common.context.js"></script>  
+<script src="../static/libraries/RGraph.common.effects.js"></script>  
+<script src="../static/libraries/RGraph.common.key.js"></script>      
+<script src="../static/libraries/RGraph.common.resizing.js"></script> 
+<script src="../static/libraries/RGraph.common.tooltips.js"></script> 
+<script src="../static/libraries/RGraph.common.zoom.js"></script>     
 <script type="text/javascript"> 
 function time(){
 var a =  [1358658000.0, 1358571600.0, 1358485200.0, 1358398800.0, 1358312400.0, 1358226000.0, 1358139600.0, 1358053200.0, 1357966800.0, 1357880400.0];
@@ -181,38 +181,28 @@ var a =  [1358658000.0, 1358571600.0, 1358485200.0, 1358398800.0, 1358312400.0, 
 return a;
 }
 
-function chart(r,stock,x,y){
-  var chart = r.g.linechart(
-    10, 10,      // top left anchor
-    490, 180,    // bottom right anchor
-     x,
-     y,
- 
-    {
-       nostroke: false,   // lines between points are drawn
-       axis: "0 0 1 1",   // draw axes on the left and bottom
-       symbol: "disc",    // use a filled circle as the point symbol
-       smooth: false,      // curve the lines to smooth turns on the chart
-       dash: "-",         // draw the lines dashed
-       colors: [
-         "#995555",       // the first line is red  
-     //    "#555599"        // the second line is blue
-       ]
-     });
-     var x_axis=chart.axis[0].text.items;
-    // console.log(x_axis[0]);
-     for (var i=0; i<x_axis.length; i++){
-       console.log(x[i]);
-       var date=new Date(x[i]*1000);
-     //  console.log(date);
-        var month=date.getMonth()+1;
-        var day=date.getDate();
-        tmp=month+"/"+day;
-         x_axis[i].attr("text",tmp);
-     }
+function chart(stock,x,y){
+     var line=new RGraph.Line(stock,y);
+     line.Set('chart.labels',x);
+     line.Draw();
+}
 
 
 
+
+
+function convert_time(time){
+var x=[]
+for (var i=0; i<time.length; i++)
+{
+var date=new Date(time[i]*1000);
+var day=date.getDate();
+var month = date.getMonth();
+console.log(month);
+tmp=month+"/"+day;
+x.push(tmp);
+}
+return x;
 }
 
 function getStockNames(){
@@ -226,7 +216,7 @@ $.getJSON('/getStocks',function(){});
 
 }
 
-function setChart(r,name){
+function setChart(name){
     $.getJSON('/getStocks',function(stocks)
     {
 
@@ -235,7 +225,7 @@ function setChart(r,name){
           if (stocks[i]["stock"]===name)
           {
             stock=stocks[i];
-	    console.log(stock);
+//	    console.log(stock);
            }
          }
         var x = [];
@@ -244,11 +234,12 @@ function setChart(r,name){
          {
              x.push(stock["data"][i]["time"]);
              y.push(stock["data"][i]["price"]);
-             console.log(x);
-             console.log(y);
+            // console.log(x);
+           //  console.log(y);
 
          }
-         chart(r,name,x,y);
+//	x=convert_time(x);
+         chart(name,x,y);
      }
     );
 
@@ -274,13 +265,13 @@ window.onload = function(){
 //var f = Raphael("mad");
 //var g = Raphael("sick");
 
-setChart(Raphael("bored"),"bored");
-setChart(Raphael("love"),"love");
-setChart(Raphael("sad"),"sad");
-setChart(Raphael("tired"),"tired");
-setChart(Raphael("happy"),"happy");
-setChart(Raphael("sick"),"sick");
-setChart(Raphael("mad"),"mad");
+setChart("bored");
+setChart("love");
+setChart("sad");
+setChart("tired");
+setChart("happy");
+setChart("sick");
+setChart("mad");
 
 }
 
