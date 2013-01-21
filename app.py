@@ -165,8 +165,14 @@ def crash():
         happyp=prices["happy"][len(prices["happy"])-1]
         sickp=prices["sick"][len(prices["sick"])-1]
         madp=prices["mad"][len(prices["mad"])-1]
-
-        return render_template("graph1.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
+        boredi=utils.get_icon("bored")
+        sadi=utils.get_icon("sad")
+        lovei=utils.get_icon("love")
+        tiredi=utils.get_icon("tired")
+        happyi=utils.get_icon("happy")
+        sicki=utils.get_icon("sick")
+        madi=utils.get_icon("mad")
+        return render_template("graph1.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi,sadi=sadi,lovei=lovei,tiredi=tiredi,happyi=happyi,sicki=sicki,madi=madi);
 
 @app.route("/success",methods=["GET","POST"])
 def transact(): 
@@ -179,7 +185,14 @@ def transact():
         happyp=prices["happy"][len(prices["happy"])-1]
         sickp=prices["sick"][len(prices["sick"])-1]
         madp=prices["mad"][len(prices["mad"])-1]
-        return render_template("graph2.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp);
+        boredi=utils.get_icon("bored")
+        sadi=utils.get_icon("sad")
+        lovei=utils.get_icon("love")
+        tiredi=utils.get_icon("tired")
+        happyi=utils.get_icon("happy")
+        sicki=utils.get_icon("sick")
+        madi=utils.get_icon("mad")
+        return render_template("graph2.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi,sadi=sadi,lovei=lovei,tiredi=tiredi,happyi=happyi,sicki=sicki,madi=madi);
 #Oauth
 '''
 @app.route("/")
