@@ -1,4 +1,0 @@
-import otterapi.py
-
-def price(name):
-    count=otterapi.setup(name)
