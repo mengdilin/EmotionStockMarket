@@ -1,80 +1,90 @@
 <!DOCTYPE html>
 <html>
-<form action="profile" method="POST">
-  <head>
-    <title>Emotion Stock Market</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <form action="profile" method="POST">
+    <head>
+      <title>Emotion Stock Market</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </meta>
-    <link href="static/css/bootstrap-responsive.css" rel="stylsheet">
-    <link  href="static/css/bootstrap.css" rel="stylesheet">
-    <style>
+<link href="static/css/bootstrap-responsive.css" rel="stylsheet">
+<link  href="static/css/bootstrap.css" rel="stylesheet">
+<style>
       body{padding-top:60px;padding-left:40px}
-    </style>
+</style>
 
-  
 
-  </head>
-  
-  <body>
-  <body bgcolor="#212122">
-    <div class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner">
-	<div class="container">
-	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	    <span class="icon-bar"></span>
-	  </a>
-	  <a class="brand" href="/profile">Emotion Stock Market</a>
-	  <div class="nav-collapse navbar-responsive-collapse in collapse">
-	    <ul class="nav">
-	      <li><a href="/about">About</a></li>
-	      <li class="active">
-		<a href="/profile">Profile</a>
-	      </li>
-	      <li><a href="/graph">Stock Market</a></li>
-	      <li><a href="/bank">Bank</a></li>
-	    </ul>
-	  <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
-	  </div> <!-- /.nav-collapse --> 
+
+    </head>
+    <body bgcolor="#212122">
+      <div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+	  <div class="container">
+	    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </a>
+	    <a class="brand" href="/profile">Emotion Stock Market</a>
+	    <div class="nav-collapse navbar-responsive-collapse in collapse">
+	      <ul class="nav">
+		<li><a href="/about">About</a></li>
+		<li class="active">
+		  <a href="/profile">Profile</a>
+		</li>
+		<li><a href="/graph">Stock Market</a></li>
+		<li><a href="/bank">Bank</a></li>
+	      </ul>
+	      <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
+	    </div> <!-- /.nav-collapse --> 
+	  </div>
 	</div>
       </div>
-    </div>
-    
-    <div class="container">
-      <p><i><h1>{{d}}</h1></i></p>
-      <p class="text-success"><span class="label label-success">Money</span> : ${{ money }}</p>
-      <p class="text-error"><span class="label label-important">Soul</span>: {{ soul }}%</p>
-      <div id="stocks" class="span4">
-	<p><h3>My Stocks:</h3>
-	  <table class="table table-hover table-bordered table-condensed">
-	    <thead>
-	      <tr>
-		<td><h4>Stock</h4></td>
-		<td><h4>Shares</h4></td>
-	  </tr>
-	    </thead>
-	    <tbody>
-	      {% for i in stock %}
-	      <tr>
-		<td>{{ i["stock"] }}</td>
-		<td>{{i["shares"]}}</td>
+      
+      <div class="container">
+	<p><i><h1>{{d}}</h1></i></p>
+	<p class="text-success"><span class="label label-success">Money</span> : ${{ money }}</p>
+	<p class="text-error"><span class="label label-important">Soul</span>: {{ soul }}%</p>
+	<div id="stocks" class="span4">
+	  <p><h3>My Stocks:</h3>
+	    {% if stock %}
+	    <table class="table table-hover table-bordered table-condensed">
+	      <thead>
+		<tr>
+		  <td><h4>Stock</h4></td>
+		  <td><h4>Shares</h4></td>
+		</tr>
+	      </thead>
+	      <tbody>
+		{% for i in stock %}
+		<tr>
+		  <td>{{ i["stock"] }}</td>
+		  <td>{{i["shares"]}}</td>
 		{% endfor %}
-	      </tr>
-	    </tbody>
-	  </table>
-	  
-
+		</tr>
+	      </tbody>
+	    </table>
+	</div>
+	<div class="span8">
+	  <p class="lead text-info">Click on 'Stock Market' to Trade.</p>
+	  <p class="lead text-info">Out of<em><strong><a class="text-success"> money</a></em></strong>? Sell your <em><strong><a class="text-error">soul</a></strong></em> at the 'Bank'!</p>
+	</div>
+	{% else %}
       </div>
-    </div>
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="static/js/jquery-1.7.2.min.js"><\/script>')</script>
-      
-      <script src="static/js/bootstrap.min.js"></script>
+      <br></br>
+      <br></br>
+      <p class="lead text-info"><i> Looks like you don't have any stocks! Click on 'Stock Market' above to <strong>start trading</strong></i>!</p>
+      {% endif %}
       
       
       
-  </body>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="static/js/jquery-1.7.2.min.js"><\/script>')</script>
+  
+  <script src="static/js/bootstrap.min.js"></script>
+  
+  
+  
+</body>
 </form>
 </html>
