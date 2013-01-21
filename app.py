@@ -17,7 +17,7 @@ def index():
 def login():
     if request.method=="GET":
         return render_template('login.html')
-    elif request.form['button']=='GOOGLE':
+    elif request.form['button']=='LOG':
         username=request.form['username']
         utils.add_user(username)
         session["user"]=username
