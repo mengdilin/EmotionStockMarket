@@ -11,7 +11,7 @@ app.secret_key="secret key" # Since we'll be using sessions
 def index():
     if not session.has_key('user'):
         return redirect(url_for('login'))
-    return redirect(url_for("profile"))
+    return redirect(url_for("about"))
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -24,7 +24,7 @@ def login():
             print username
             utils.add_user(username)
             session["user"]=username
-            return redirect(url_for("profile"))
+            return redirect(url_for("about"))
 
 @app.route('/updateStocks')
 def updateStocks():
