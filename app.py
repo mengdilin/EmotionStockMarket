@@ -22,7 +22,13 @@ def login():
         if request.form['button']=='GOOGLE':
             url=googleauth.build_redirect_url()
             return redirect(url)
-        
+        elif request.form['button']=='Login':
+            username=request.form['username']
+            utils.add_user(username)
+            session["user"]=username
+            return redirect(url_for("about"))
+'''
+ 
 @app.route("/auth2callback")
 def googleoauth2callback():
     # this code comes from the google login page
@@ -41,16 +47,6 @@ def googleoauth2callback():
     utils.add_user(userinfo['email'])
     return redirect(url_for('about'));
 
-
-'''
-        print "True"
-        if request.form['button']=='Login':
-            username=request.form['username']
-            print username
-            utils.add_user(username)
-            session["user"]=username
-            return redirect(url_for("about"))
-'''
 @app.route('/updateStocks')
 def updateStocks():
     date=utils.get_date()
