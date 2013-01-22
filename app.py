@@ -79,7 +79,6 @@ def getYcoords():
 
 @app.route('/getStocks/')
 def getStocks():
-    updateStocks()
     return json.dumps(utils.get_market(),sort_keys=True,indent=4,default=json_util.default)
 
 @app.route('/stockNames')
