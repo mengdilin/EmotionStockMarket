@@ -23,7 +23,7 @@ def pre_set(keyword, yesterdaytime, todaytime):
     return [yesterdaytime,result["response"]["total"]]
 
 def get_date():
-    mintime1=datetime.date.today() - datetime.timedelta(1)
+    mintime1=datetime.date.today() - datetime.timedelta(2)
     mintime1=float(time.mktime(mintime1.timetuple()))
     maxtime1=datetime.date.today()# - datetime.timedelta(1)
     maxtime1=float(time.mktime(maxtime1.timetuple()))
@@ -64,8 +64,8 @@ def create_times():
     t.reverse()
     return t;
 
-mintime=datetime.date.today()-datetime.timedelta(4)
-mintime=float(time.mktime(mintime.timetuple()))
+
+#print real_time(create_times()[5])
 #print real_time(get_times()[2])
 #rint pre_set("happy",str(get_date()[0]),str(get_date()[1]))
 #print get_times()[0]

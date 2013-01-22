@@ -1,5 +1,6 @@
 from pymongo import Connection
 import otterapi
+from random import randint
 Connection=Connection('mongo.stuycs.org')
 
 db=Connection.admin
@@ -265,7 +266,7 @@ def update_market():
     db=Connection["EmotionStock"]
     names=get_stocks_names()
     for name in names:
-        update_price(name)
+        test(name)
 
 def update_price(name):
     db=Connection["EmotionStock"]
@@ -275,10 +276,14 @@ def update_price(name):
         market.update({"stock":name},{"$pop":{"data":-1}});
     count=otterapi.setup(name)[1]
     time=otterapi.setup(name)[0]
-    print time
+    #print time
     price = (float(count)-float(stock["last count"]))/float(stock["last count"])
     price = float('%.1f' % (round(price,1)))+1
     price = int(stock["data"][len(stock["data"])-1]["price"]*price)
+
+    price = randint(-5,5)+price
+    if price<=1:
+        price=price*(randint(1,3))
     #print [price, count, stock["last count"]]
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
@@ -307,6 +312,9 @@ def test(name):
     price = (float(count)-float(stock["last count"]))/float(stock["last count"])
     price = float('%.1f' % (round(price,1)))+1
     price = int(stock["data"][len(stock["data"])-1]["price"]*price)
+    price = randint(-5,5)+price
+    if price<=1:
+        price=price+(randint(1,3))
     print [price, count, stock["last count"]]
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
@@ -363,6 +371,8 @@ if __name__=="__main__":
     #delete_market()
     #market_setup()
     #update_market()
+    print get_stock(names[1])
+    #print otterapi.real_time(get_date())
     #update_price(names[0])
     #print otterapi.real_time(get_date())
     #print otterapi.real_time(get_date())
