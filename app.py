@@ -18,6 +18,30 @@ def login():
     if request.method=="GET":
         return render_template('login.html')
     elif request.method=="POST":
+        if request.form['button']=='GOOGLE':
+            url=googleauth.build_redirect_url()
+            return redirect(url)
+        
+@app.route("/auth2callback")
+def googleoauth2callback():
+    # this code comes from the google login page
+    code=request.args.get('code','')
+
+    # if we didn't get a code, go back to login
+    if code=='':
+        return redirect(url_for('login'))
+
+    # We have a code so we have to convert it to an access token
+    access_token = googleauth.code_to_access_token(code)
+
+    # and convert it to userinfo
+    userinfo=googleauth.access_token_to_info(access_token)
+    session['user']=userinfo['email']
+    utils.add_user(userinfo['email'])
+    return redirect(url_for('about'));
+
+
+'''
         print "True"
         if request.form['button']=='Login':
             username=request.form['username']
@@ -25,7 +49,7 @@ def login():
             utils.add_user(username)
             session["user"]=username
             return redirect(url_for("about"))
-
+'''
 @app.route('/updateStocks')
 def updateStocks():
     date=utils.get_date()
@@ -211,7 +235,13 @@ def login():
         url=googleauth.build_redirect_url()
         return redirect(url)
 
-@app.route("/googleoauth2callback")
+@app.route("/logout")
+def logout():
+    session.pop('user')
+    return redirect(url_for('login'))
+
+
+@app.route("/auth2callback")
 def googleoauth2callback():
     # this code comes from the google login page
     code=request.args.get('code','')
@@ -226,9 +256,10 @@ def googleoauth2callback():
     # and convert it to userinfo
     userinfo=googleauth.access_token_to_info(access_token)
     session['user']=userinfo
+    print userinfo['email']
     return redirect(url_for('index'));
 '''
 if __name__=="__main__":
     app.debug=True
-    updateStocks()
-    app.run()
+   #updateStocks()
+    app.run(port=6007)

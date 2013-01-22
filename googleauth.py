@@ -4,14 +4,14 @@ baseurl='https://accounts.google.com/o/oauth2/auth?scope=%s&state=unique&redirec
 scope=urllib.quote('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email')
 
 # These are all from the Google api console
-client_id=urllib.quote('790726607376.apps.googleusercontent.com')
-redirect_url=urllib.quote('http://ml7.stuycs.org:4500/googleoauth2callback')
-client_secret="tAZSoVWiY-vGeiqJlZ0-9VVh"
+client_id=urllib.quote('550850080377.apps.googleusercontent.com')
+redirect_url=urllib.quote('http://127.0.0.1:6007/auth2callback')
+client_secret="YRuHw-xFTIYUONiSDo7Cok-5"
 
 #later replace 127.0.0.1:5000 in redirect_url
-original_url= 'http://ml7.stuycs.org:4500'
+original_url= 'http://127.0.0.1:6007'
 
-test_url='http://127.0.0.1:5000'
+test_url='http://127.0.0.1:6007'
 
 # This makes the url that we should rediret the user to if they
 # want to login using google
@@ -24,7 +24,7 @@ def code_to_access_token(code):
     params=urllib.urlencode({'code':code
                              ,'client_id':client_id
                              ,'client_secret':client_secret
-                             ,'redirect_uri':"http://ml7.stuycs.org:4500/googleoauth2callback"
+                             ,'redirect_uri':"http://127.0.0.1:6007/auth2callback"
                              ,'grant_type':'authorization_code'})
     
     f=urllib.urlopen('https://accounts.google.com/o/oauth2/token' ,params)
