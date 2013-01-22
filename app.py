@@ -27,7 +27,6 @@ def login():
             utils.add_user(username)
             session["user"]=username
             return redirect(url_for("about"))
-'''
  
 @app.route("/auth2callback")
 def googleoauth2callback():
