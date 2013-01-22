@@ -194,11 +194,11 @@ def get_icon(name):
     price = stock["data"][len(stock["data"])-1]["price"]
     last_price = stock["data"][len(stock["data"])-2]["price"]
     if price>last_price:
-        return "Stock Index Up.png"
+        return ["Stock Index Up.png",abs(price-last_price)]
     if price==last_price:
-        return "zoom_out.png"
+        return ["zoom_out.png",abs(price-last_price)]
     if price<last_price:
-        return "Stock Index Down.png"
+        return ["Stock Index Down.png",abs(price-last_price)]
 
 #soul:int
 def sell_soul(name,soul):
@@ -351,6 +351,7 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     names=["happy","love","sad","tired","bored","mad","sick"]
+    print get_icon("love")
     #update_market()
     #print get_stocks_names();
     #print get_market()

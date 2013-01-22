@@ -119,8 +119,9 @@ def graph():
     happyi=utils.get_icon("happy")
     sicki=utils.get_icon("sick")
     madi=utils.get_icon("mad")
+ 
     if request.method == "GET":
-        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi,sadi=sadi,lovei=lovei,tiredi=tiredi,happyi=happyi,sicki=sicki,madi=madi);
+        return render_template("graph.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi[0],sadi=sadi[0],lovei=lovei[0],tiredi=tiredi[0],happyi=happyi[0],sicki=sicki[0],madi=madi[0],boredip=boredi[1],loveip=lovei[1],tiredip=tiredi[1],happyip=happyi[1],sickip=sicki[1],madip=madi[1],sadip=sadi[1]);
     if request.method == "POST":
         d=session['user']
         value=request.form["button"]
@@ -172,7 +173,7 @@ def crash():
         happyi=utils.get_icon("happy")
         sicki=utils.get_icon("sick")
         madi=utils.get_icon("mad")
-        return render_template("graph1.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi,sadi=sadi,lovei=lovei,tiredi=tiredi,happyi=happyi,sicki=sicki,madi=madi);
+        return render_template("graph1.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi[0],sadi=sadi[0],lovei=lovei[0],tiredi=tiredi[0],happyi=happyi[0],sicki=sicki[0],madi=madi[0],boredip=boredi[1],loveip=lovei[1],tiredip=tiredi[1],happyip=happyi[1],sickip=sicki[1],madip=madi[1],sadip=sadi[1]);
 
 @app.route("/success",methods=["GET","POST"])
 def transact(): 
@@ -192,7 +193,7 @@ def transact():
         happyi=utils.get_icon("happy")
         sicki=utils.get_icon("sick")
         madi=utils.get_icon("mad")
-        return render_template("graph2.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi,sadi=sadi,lovei=lovei,tiredi=tiredi,happyi=happyi,sicki=sicki,madi=madi);
+        return render_template("graph2.html",bored="bored",boredp=boredp,lovep=lovep,tiredp=tiredp,happyp=happyp,sickp=sickp,madp=madp,sadp=sadp,boredi=boredi[0],sadi=sadi[0],lovei=lovei[0],tiredi=tiredi[0],happyi=happyi[0],sicki=sicki[0],madi=madi[0],boredip=boredi[1],loveip=lovei[1],tiredip=tiredi[1],happyip=happyi[1],sickip=sicki[1],madip=madi[1],sadip=sadi[1]);
 #Oauth
 '''
 @app.route("/")
