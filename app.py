@@ -3,6 +3,7 @@ from flask import session,render_template,url_for,redirect,request
 import urllib2,json
 import googleauth,utils,otterapi
 from bson import BSON, json_util
+import time,threading
 
 app = Flask(__name__)
 app.secret_key="secret key" # Since we'll be using sessions
@@ -29,12 +30,13 @@ def login():
 @app.route('/updateStocks')
 def updateStocks():
     date=utils.get_date()
+    print "here"
     if (date == 0 or date < otterapi.get_times()[2]):
         utils.update_date(otterapi.get_times()[2])
         utils.update_market()
-        return True
-    else:
-        return False
+    #threading.Timer(1,updateStocks).start()
+    
+    
 
 @app.route("/logout")
 def logout():
@@ -64,6 +66,7 @@ def getStockNames():
 def about():
     if request.method=="GET":
         return render_template('about.html')
+
 
 @app.route('/profile',methods=["GET","POST"])
 def profile():
@@ -230,5 +233,4 @@ def googleoauth2callback():
 '''
 if __name__=="__main__":
     app.debug=True
-    updateStocks()
     app.run()
