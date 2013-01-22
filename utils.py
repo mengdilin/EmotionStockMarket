@@ -351,7 +351,7 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     names=["happy","love","sad","tired","bored","mad","sick"]
-    print get_icon("love")
+    print get_market()
     #update_market()
     #print get_stocks_names();
     #print get_market()
