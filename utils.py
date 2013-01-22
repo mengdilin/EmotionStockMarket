@@ -267,14 +267,15 @@ def update_market():
     for name in names:
         update_price(name)
 
-
 def update_price(name):
     db=Connection["EmotionStock"]
     stock=market.find_one({"stock":name})
     if len(stock["data"])>6:
+        #pops the first one
         market.update({"stock":name},{"$pop":{"data":-1}});
     count=otterapi.setup(name)[1]
     time=otterapi.setup(name)[0]
+    print time
     price = (float(count)-float(stock["last count"]))/float(stock["last count"])
     price = float('%.1f' % (round(price,1)))+1
     price = int(stock["data"][len(stock["data"])-1]["price"]*price)
@@ -286,15 +287,22 @@ def update_price(name):
     market.update({"stock":name},{"$push":{"data":data}})
     market.update({"stock":name},{"$set":{"last count":count}})
 
-
+def fix(name):
+    db=Connection["EmotionStock"]
+    stock=market.find_one({"stock":name})
+    data=stock["data"]
+    data[len(data)-2]["time"]="01/20"
+    market.update({"stock":name},{"$set":{"data":data}})
+    market.update({"stock":name},{"$pop":{"data":-1}})
+    
 def test(name):
     db=Connection["EmotionStock"]
     stock=market.find_one({"stock":name})
     if len(stock["data"])>6:
         market.update({"stock":name},{"$pop":{"data":-1}});
     times=otterapi.create_times()
-    count=otterapi.pre_set(name,times[6],times[7])[1]
-    time=otterapi.pre_set(name,times[6],times[7])[0]
+    count=otterapi.pre_set(name,times[5],times[6])[1]
+    time=otterapi.pre_set(name,times[5],times[6])[0]
     price=stock["data"][len(stock["data"])-1]["price"]*(1+((count-stock["last count"])/(stock["last count"]*100)))
     price = (float(count)-float(stock["last count"]))/float(stock["last count"])
     price = float('%.1f' % (round(price,1)))+1
@@ -303,18 +311,18 @@ def test(name):
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
     stock["last count"]=count
-    #market.update({"stock":name},{"$push":{"data":data}})
-    #market.update({"stock":name},{"$set":{"last count":count}})
+    market.update({"stock":name},{"$push":{"data":data}})
+    market.update({"stock":name},{"$set":{"last count":count}})
 
 
 def market_setup():
     db=Connection["EmotionStock"]
     names=["happy","love","sad","tired","bored","mad","sick"]
     for name in names:
-        times=otterapi.create_times()
-        count=otterapi.pre_set(name,times[0],times[1])[1]
-        time=otterapi.pre_set(name,times[0],times[1])[0]
-        stock={"stock":name,"last count":count,"data":[{"time":time,"price":40}]}
+       # times=otterapi.create_times()
+       # count=otterapi.pre_set(name,times[0],times[1])[1]
+       # time=otterapi.pre_set(name,times[0],times[1])[0]
+        stock={"stock":name,"last count":10000,"data":[{"time":"01/14","price":40}]}
         market.insert(stock)
 
 def date_setup():
@@ -351,12 +359,17 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     names=["happy","love","sad","tired","bored","mad","sick"]
-    print get_market()
+    
+    #delete_market()
+    #market_setup()
     #update_market()
+    #update_price(names[0])
+    #print otterapi.real_time(get_date())
+    #print otterapi.real_time(get_date())
     #print get_stocks_names();
-    #print get_market()
+    #print get_stock(names[0])
+    # print get_market()
     #update_market()
-    #print get_stock("happy")
     #add_user(name)
     #buy_stock(name,stock,count)
     #print auth_stock("happy")
