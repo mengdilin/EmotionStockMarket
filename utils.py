@@ -371,7 +371,7 @@ if __name__=="__main__":
     #delete_market()
     #market_setup()
     #update_market()
-    print get_stock(names[1])
+   
     #print otterapi.real_time(get_date())
     #update_price(names[0])
     #print otterapi.real_time(get_date())

@@ -49,9 +49,10 @@ def googleoauth2callback():
 
 def updateStocks():
     date=utils.get_date()
-    print "here"
-    if (date == 0 or date < otterapi.get_times()[2]):
-        utils.update_date(otterapi.get_times()[2])
+    #print "here"
+    if (date == 0 or date < otterapi.create_times()[5]):
+        print [date,otterapi.create_times()[5]]
+        utils.update_date(otterapi.create_times()[5])
         utils.update_market()
     #threading.Timer(1,updateStocks).start()
     
@@ -74,6 +75,7 @@ def getYcoords():
 
 @app.route('/getStocks/')
 def getStocks():
+    updateStocks()
     return json.dumps(utils.get_market(),sort_keys=True,indent=4,default=json_util.default)
 
 @app.route('/stockNames')
