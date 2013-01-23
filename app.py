@@ -104,23 +104,32 @@ def profile():
 def bank():
     if not session.has_key('user'):
         return redirect(url_for('login'))
-    elif request.method=="GET":
-        d=session['user']
-        soul=utils.get_soul(d)
-        b=100-soul
-        money=utils.get_money(d)
+    d=session['user']
+    soul=utils.get_soul(d)
+    b=100-soul
+    money=utils.get_money(d)
+    if request.method=="GET":
         return render_template('bank.html', d=d, soul=soul, b=b, money=money)
     elif request.method=="POST":
         button=request.form["button"]
-        d=session["user"]
         if button=="Sell":
-            amt_sell=int(request.form['selling'])
-            value=utils.sell_soul(d,amt_sell)
-            return redirect(url_for("bank"))
+            try:
+                amt_sell=int(request.form['selling'])
+                if amt_sell>100 or amt_sell<0 or amt_sell>soul:
+                    return render_template("bank1.html",d=d,soul=soul,b=b,money=money)
+                value=utils.sell_soul(d,amt_sell)
+                return redirect(url_for("bank"))
+            except Exception:
+                return render_template("bank1.html",d=d,soul=soul,b=b,money=money)
         elif button=="Buy":
-            amt_buy=int(request.form['buying'])
-            value=utils.buy_soul(d,amt_buy)
-            return redirect(url_for("bank"))
+            try:
+                amt_buy=int(request.form['buying'])
+                if amt_buy>100 or amt_buy<0 or amt_buy>b:
+                    return render_template("bank1.html",d=d,soul=soul,b=b,money=money)
+                value=utils.buy_soul(d,amt_buy)
+                return redirect(url_for("bank"))
+            except Exception:
+                return render_template("bank1.html",d=d,soul=soul,b=b,money=money)
     return redirect(url_for("profile"))
 
 @app.route('/graph',methods=["GET","POST"])
