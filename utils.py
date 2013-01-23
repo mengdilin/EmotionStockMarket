@@ -147,9 +147,15 @@ def get_stocks(user):
     if(authenticate(user)):
         name=players.find_one({"name":user})
         stock=[]
+        gain=0
         for item in name["stocks"]:
-            stock.append(item)
-        return stock
+            tmp_name=item["stock"]
+            tmp_share=item["shares"]
+            tmp_price=get_stock_price(tmp_name)*tmp_share
+            gain=gain+tmp_price
+            x={"shares":tmp_share,"stock":tmp_name,"price":tmp_price}
+            stock.append(x)
+        return [stock,gain]
 
 #return: names of stocks for a specific user
 def get_stocks_user(user):
@@ -367,7 +373,7 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     names=["happy","love","sad","tired","bored","mad","sick"]
-    
+    print get_stocks(name)
     #delete_market()
     #market_setup()
     #update_market()

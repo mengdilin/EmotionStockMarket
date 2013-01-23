@@ -41,7 +41,9 @@
       
       <div class="container">
 	<p><i><h1>{{d}}</h1></i></p>
-	<p class="text-success"><span class="label label-success">Money</span> : ${{ money }}</p>
+	<p class="text-success"><span class="label label-success">Cash At Hand</span> : ${{ money }}</p>
+	<p class="text-success"><span class="label label-success">Unrealized Gain</span> : ${{ gain }}</p>
+	<p class="text-success"><span class="label label-success">Total Money</span> : ${{ total }}</p>
 	<p class="text-error"><span class="label label-important">Soul</span>: {{ soul }}%</p>
 	<div id="stocks" class="span4">
 	  <p><h3>My Stocks:</h3>
@@ -51,6 +53,7 @@
 		<tr>
 		  <td><h4>Stock</h4></td>
 		  <td><h4>Shares</h4></td>
+		  <td><h4>Total Value</h4></td>
 		</tr>
 	      </thead>
 	      <tbody>
@@ -58,6 +61,7 @@
 		<tr>
 		  <td>{{ i["stock"] }}</td>
 		  <td>{{i["shares"]}}</td>
+		  <td>${{i["price"]}}</td>
 		{% endfor %}
 		</tr>
 	      </tbody>

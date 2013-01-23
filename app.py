@@ -95,9 +95,11 @@ def profile():
     elif request.method=="GET":
         d=session['user']
         money=utils.get_money(d)
-        stock=utils.get_stocks(d)
+        stock=utils.get_stocks(d)[0]
         soul=utils.get_soul(d)
-        return render_template('profile.html',d=d,money=money,stock=stock,soul=soul)
+        gain=utils.get_stocks(d)[1]
+        total=money+gain
+        return render_template('profile.html',d=d,money=money,stock=stock,soul=soul,gain=gain,total=total)
     return redirect(url_for('profile'))
 
 @app.route('/bank', methods=["GET","POST"])
