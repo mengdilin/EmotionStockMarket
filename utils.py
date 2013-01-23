@@ -288,8 +288,10 @@ def update_price(name):
     price = int(stock["data"][len(stock["data"])-1]["price"]*price)
 
     price = randint(-5,5)+price
-    if price<=1:
+    if price<1:
         price=price*(randint(1,3))
+    if price == 0:
+        price = 1
     #print [price, count, stock["last count"]]
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
@@ -366,6 +368,7 @@ def delete_market():
 def delete_stuff(name):
     db=Connection["EmotionStock"]
     stock=market.find_one({"stock":name})
+    #print stock
     market.update({"stock":name},{"$pop":{"data":len(stock["data"])-1}});
 
 if __name__=="__main__":
@@ -373,7 +376,9 @@ if __name__=="__main__":
     name="mengdi"
     stock="happy"
     names=["happy","love","sad","tired","bored","mad","sick"]
-    print get_stocks(name)
+  
+ 
+    print get_stock("mad")
     #delete_market()
     #market_setup()
     #update_market()
