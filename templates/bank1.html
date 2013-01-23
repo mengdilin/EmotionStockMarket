@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<form action="bank" method="POST">
+  <head>
+    <title>Emotion Stock Market</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</meta>
+    <link href="static/css/bootstrap-responsive.css" rel="stylsheet">
+    <link  href="static/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body{padding-top:60px;padding-left:40px}
+    </style>
+
+  
+
+  </head>
+  
+  <body>
+   <body bgcolor="#212122">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+	<div class="container">
+	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </a>
+	  <a class="brand" href="/profile">Emotion Stock Market</a>
+	  <div class="nav-collapse navbar-responsive-collapse in collapse">
+	    <ul class="nav">
+	      <li><a href="/about">About</a></li>
+	      <li><a href="/profile">Profile</a></li>
+	      <li><a href="/graph">Stock Market</a></li>
+	      <li class="active">
+		<a href="/bank">Bank</a>
+	      </li>
+	    </ul>
+	  <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
+	  </div> <!-- /.nav-collapse --> 
+	</div>
+      </div>
+    </div>
+    <div class="alert alert-error">
+   <button type="button" class="close" data-dismiss="alert">&times;</button>
+   <p class="warning"><strong>Transaction Unsuccessful!</strong> Type in an integer greater than 0 and less than 100</p>
+    </div>
+    <div class="container">
+      <p><i><h1>{{d}}</h1></i></p>
+      <div id="bank" class="span6">
+	<p><h3>Central Bank:</h3>
+	  <table class="table table-hover table-bordered table-condensed">
+	    <thead>
+	      <tr>
+		<td></td>
+		<td><h4>Bank</h4></td>
+		<td><h4>{{d}}</h4></td>
+	  </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td><h4>Soul (%)</h4></td>
+		<td>{{b}}%</td>
+		<td>{{soul}}%</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	<p class="lead"><b>Who owns my soul?</p></b>
+	<small><p class="text-error">RED=Percentage of soul sold for $$$.</p>
+	  <p class="text-success">GREEN=Percentage of soul still MINE.</p></small>
+	<div class="progress progress-striped active">
+	  <div class="bar bar-success" style="width:{{soul}}%;"></div>
+	  <div class="bar bar-danger" style="width:{{b}}%;"></div>
+	</div>
+	<p class="text-success"><span class="label label-success">Money</span> : ${{ money }}</p>
+	<br></br>
+	<h4>Sell my Soul:</h4>
+	<small> 1% Soul = $100 </small>
+	<p><input name="selling" type="text" placeholder="give me the $$$">	<p><button type="submit" class="btn btn-danger" name="button" value="Sell">SELL</button>
+  	  <br></br>
+	  <h4>Redeemption:</h4>
+	  <small>Buy back your soul (1% Soul = $100)</small>
+	  <p><input name="buying" type="text" placeholder="i'm not evil">
+	<p><button type="submit" class="btn btn-success" name="button" value="Buy">BUY</button>
+	  <br></br>
+	  <br></br>
+      </div>
+    </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="static/js/jquery-1.7.2.min.js"><\/script>')</script>
+      
+      <script src="static/js/bootstrap.min.js"></script>
+      
+      
+      
+  </body>
+</form>
+</html>
