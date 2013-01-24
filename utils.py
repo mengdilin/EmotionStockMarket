@@ -323,6 +323,8 @@ def test(name):
     price = randint(-5,5)+price
     if price<=1:
         price=price+(randint(1,3))
+    if price == 0:
+        price = 1
     print [price, count, stock["last count"]]
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
