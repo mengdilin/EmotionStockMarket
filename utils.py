@@ -321,10 +321,8 @@ def test(name):
     price = float('%.1f' % (round(price,1)))+1
     price = int(stock["data"][len(stock["data"])-1]["price"]*price)
     price = randint(-5,5)+price
-    if price<=1:
-        price=price+(randint(1,3))
-    if price == 0:
-        price = 1
+    if price<1:
+        price=1
     print [price, count, stock["last count"]]
     #print [count, stock["last count"]]
     data=({"time":time,"price":price})
