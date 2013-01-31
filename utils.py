@@ -125,7 +125,7 @@ returns:
 def sell_stock(name,stock,count):
     db=Connection["EmotionStock"]
     if (authenticate(name) and auth_stock(stock)):
-        stocks=get_stocks(name)
+        stocks=get_stocks(name)[0]
         for item in stocks:
             if item["stock"]==stock:
                 if (item["shares"]<count):
