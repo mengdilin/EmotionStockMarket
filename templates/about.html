@@ -35,7 +35,13 @@
 	      <li><a href="/graph">Stock Market</a></li>
 	      <li><a href="/bank">Bank</a></li>
 	    </ul>
-	  <p class="navbar-text pull-right"> <a href="/logout" class="navbar-link">Logout</p></a>
+	  <p class="navbar-text pull-right"> 
+	    {% if loggedin %}
+	    <a href="/logout" class="navbar-link">Logout</a>
+	    {% else %}
+	    <a href="/login" class="navbar-link">Login</a>
+	    {% endif %}
+	  </p>
 	  </div> <!-- /.nav-collapse --> 
 	</div>
       </div>

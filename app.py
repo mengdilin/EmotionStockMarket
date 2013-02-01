@@ -84,8 +84,11 @@ def getStockNames():
 
 @app.route('/about', methods=["GET","POST"])
 def about():
-    if request.method=="GET":
-        return render_template('about.html')
+    if not session.has_key('user'):
+        return render_template('about.html',loggedin=False)
+    else:
+        if request.method=="GET":
+            return render_template('about.html',loggedin=True)
 
 
 @app.route('/profile',methods=["GET","POST"])
