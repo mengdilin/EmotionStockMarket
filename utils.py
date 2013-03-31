@@ -1,7 +1,7 @@
 from pymongo import Connection
 import otterapi
 from random import randint
-Connection=Connection('mongo.stuycs.org')
+Connection=Connection('mongo2.stuycs.org')
 
 db=Connection.admin
 res=db.authenticate('ml7','ml7')
