@@ -9,7 +9,7 @@ Mengdi  (Pd 7)
 
 Zuzanna (Pd 7)
 
-TEST IT AT ml7.stuycs.org:6007!
+
 
 ##Purpose: 
 Stock Market Game. Instead of trading bonds, users will be trading emotions (happy, sad, depressed, etc.). The value of a given emotion will be calculated based on its usage in Twitter posts compared to other emotions. These values will be charted and graphed (updated regularly). 
