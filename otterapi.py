@@ -65,10 +65,4 @@ def create_times():
     return t;
 
 
-#print real_time(create_times()[5])
-#print real_time(get_times()[2])
-#rint pre_set("happy",str(get_date()[0]),str(get_date()[1]))
-#print get_times()[0]
-#print setup("love")
-#love(200+);happy(90-100);bored(30-50);tired(10-20);sad(5-15);mad(0-10);sick(~20);excited(~20);
 
